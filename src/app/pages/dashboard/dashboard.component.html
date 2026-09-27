@@ -1,15 +1,27 @@
 <div class="dashboard">
 
-  <aside class="sidebar">
+  <!-- OVERLAY MOBILE -->
+  <div class="sidebar-overlay"
+       [class.active]="menuAbierto"
+       (click)="cerrarMenu()">
+  </div>
+
+
+  <!-- SIDEBAR -->
+  <aside class="sidebar"
+         [class.open]="menuAbierto">
 
     <div class="sidebar-logo">
-      <a routerLink="/dashboard">
+      <a routerLink="/dashboard"
+         (click)="cerrarMenu()">
         ISOMIND
       </a>
     </div>
 
+
     <nav class="menu">
 
+      <!-- PRINCIPAL -->
       <div class="menu-section">
 
         <span class="menu-title">
@@ -17,7 +29,8 @@
         </span>
 
         <a class="menu-item active"
-           routerLink="/dashboard">
+           routerLink="/dashboard"
+           (click)="cerrarMenu()">
 
           <span class="menu-icon">⌂</span>
           <span>Inicio</span>
@@ -27,6 +40,7 @@
       </div>
 
 
+      <!-- MI NEGOCIO -->
       <div class="menu-section">
 
         <span class="menu-title">
@@ -34,12 +48,16 @@
         </span>
 
         <a class="menu-item">
+
           <span class="menu-icon">🏪</span>
           <span>Mis locales</span>
+
         </a>
 
+
         <a class="menu-item"
-           routerLink="/dashboard/crear-local">
+           routerLink="/dashboard/crear-local"
+           (click)="cerrarMenu()">
 
           <span class="menu-icon">＋</span>
           <span>Crear local</span>
@@ -49,28 +67,36 @@
       </div>
 
 
+      <!-- ENCUESTAS -->
       <div class="menu-section">
 
         <span class="menu-title">
           ENCUESTAS
         </span>
 
+
         <a class="menu-item">
+
           <span class="menu-icon">▣</span>
           <span>Mis encuestas</span>
+
         </a>
 
-        <a type="button"
-           class="primary-button"
-           (click)="crearEncuesta()">
+
+        <button type="button"
+                class="primary-button menu-create-button"
+                (click)="crearEncuesta(); cerrarMenu()">
 
           ＋ Crear encuesta
 
-        </a>
+        </button>
+
 
         <a class="menu-item">
+
           <span class="menu-icon">✓</span>
           <span>Respuestas</span>
+
         </a>
 
       </div>
@@ -78,6 +104,7 @@
     </nav>
 
 
+    <!-- LOGOUT -->
     <div class="sidebar-bottom">
 
       <button type="button"
@@ -94,16 +121,35 @@
   </aside>
 
 
+  <!-- MAIN -->
   <main class="main-content">
 
 
+    <!-- TOPBAR -->
     <header class="topbar">
 
-      <div class="topbar-title">
-        Dashboard
+
+      <div class="topbar-left">
+
+        <!-- BOTON MOBILE -->
+        <button type="button"
+                class="menu-button"
+                (click)="toggleMenu()"
+                aria-label="Abrir menú">
+
+          ☰
+
+        </button>
+
+
+        <div class="topbar-title">
+          Dashboard
+        </div>
+
       </div>
 
 
+      <!-- USUARIO -->
       <div class="user-area">
 
         <div class="user-info">
@@ -134,9 +180,11 @@
     </header>
 
 
+    <!-- CONTENT -->
     <section class="content">
 
 
+      <!-- BIENVENIDA -->
       <div class="welcome">
 
         <h1>
@@ -150,7 +198,9 @@
       </div>
 
 
-      <!-- SIN LOCALES -->
+      <!-- ==========================================
+           SIN LOCALES
+           ========================================== -->
 
       <div class="first-local-card"
            *ngIf="locales.length === 0">
@@ -158,6 +208,7 @@
         <div class="first-local-icon">
           🏪
         </div>
+
 
         <div class="first-local-content">
 
@@ -169,6 +220,7 @@
             Antes de crear una encuesta necesitás tener al menos
             un local configurado.
           </p>
+
 
           <button type="button"
                   class="primary-button"
@@ -183,12 +235,16 @@
       </div>
 
 
-      <!-- CON LOCAL -->
+      <!-- ==========================================
+           CON LOCAL
+           ========================================== -->
 
       <div *ngIf="locales.length > 0">
 
 
+        <!-- LOCAL HEADER -->
         <div class="local-header-card">
+
 
           <div class="local-header-info">
 
@@ -207,6 +263,7 @@
           </div>
 
 
+          <!-- SELECTOR -->
           <div class="local-selector">
 
             <label>
@@ -229,6 +286,10 @@
 
         </div>
 
+
+        <!-- ==========================================
+             INFORMACION DEL LOCAL
+             ========================================== -->
 
         <div class="local-info-grid">
 
@@ -319,7 +380,12 @@
         </div>
 
 
+        <!-- ==========================================
+             ENCUESTAS HEADER
+             ========================================== -->
+
         <div class="section-heading">
+
 
           <div>
 
@@ -349,12 +415,17 @@
         </div>
 
 
+        <!-- ==========================================
+             ENCUESTAS
+             ========================================== -->
+
         <div class="survey-grid">
 
-          <!-- ENCUESTAS EXISTENTES -->
 
+          <!-- ENCUESTAS EXISTENTES -->
           <div class="survey-card"
                *ngFor="let encuesta of encuestas">
+
 
             <div class="survey-icon">
               📋
@@ -384,42 +455,57 @@
 
 
             <!-- QR -->
-
             <div class="qr-container">
-              <p class="qr-title"> Escaneá para opinar </p>
-              <qrcode [qrdata]="obtenerUrlEncuesta(encuesta)" [width]="160" [errorCorrectionLevel]="'M'"> </qrcode>
-              <button type="button" class="secondary-button qr-button" (click)="abrirEncuesta(encuesta)"> 🔗 Abrir encuesta </button>
+
+              <p class="qr-title">
+                Escaneá para opinar
+              </p>
+
+              <qrcode [qrdata]="obtenerUrlEncuesta(encuesta)"
+                      [width]="160"
+                      [errorCorrectionLevel]="'M'">
+              </qrcode>
+
+
+              <button type="button"
+                      class="secondary-button qr-button"
+                      (click)="abrirEncuesta(encuesta)">
+
+                🔗 Abrir encuesta
+
+              </button>
+
             </div>
 
 
             <!-- FOOTER -->
-
             <div class="survey-footer">
+
 
               <button type="button"
                       class="secondary-button"
                       [routerLink]="[
-          '/dashboard/encuesta',
-          encuesta.id,
-          'preguntas'
-        ]">
+                        '/dashboard/encuesta',
+                        encuesta.id,
+                        'preguntas'
+                      ]">
 
                 Ver preguntas
 
               </button>
 
 
-
               <button type="button"
                       class="secondary-button"
                       [routerLink]="[
-          '/dashboard/encuesta',
-          encuesta.id,
-          'respuestas'
-        ]">
-                📋 Ver respuestas
-              </button>
+                        '/dashboard/encuesta',
+                        encuesta.id,
+                        'respuestas'
+                      ]">
 
+                📋 Ver respuestas
+
+              </button>
 
 
             </div>
@@ -428,21 +514,23 @@
 
 
           <!-- CREAR ENCUESTA -->
-
           <div class="new-survey-card">
 
             <div class="new-survey-icon">
               ＋
             </div>
 
+
             <h3>
               Crear una encuesta
             </h3>
+
 
             <p>
               Creá una encuesta para comenzar
               a recibir opiniones de tus clientes.
             </p>
+
 
             <button type="button"
                     class="secondary-button"
@@ -457,7 +545,12 @@
         </div>
 
 
+        <!-- ==========================================
+             ACCIONES RAPIDAS
+             ========================================== -->
+
         <div class="dashboard-card actions-card">
+
 
           <div class="card-header">
 
@@ -476,7 +569,8 @@
 
 
             <button type="button"
-                    class="quick-action">
+                    class="quick-action"
+                    (click)="crearEncuesta()">
 
               <span class="quick-icon">
                 ＋
@@ -553,5 +647,3 @@
   </main>
 
 </div>
-
-
