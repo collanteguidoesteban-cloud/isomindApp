@@ -89,6 +89,12 @@ export class DashboardComponent implements OnInit {
 
 
 
+  toggleMenu(): void {
+    this.menuAbierto = !this.menuAbierto;
+  }
+
+
+
 
   cargarLocal(): void {
 
