@@ -19,6 +19,8 @@ import { OpinarComponent } from './pages/opinar/opinar.component';
 import { QRCodeModule } from 'angularx-qrcode';
 import { RespuestasEncuestaComponent } from './pages/respuestas-encuesta/respuestas-encuesta.component';
 import { VistaPreviaEncuestaComponent } from './pages/vista-previa-encuesta/vista-previa-encuesta.component';
+import { ConstructorEncuestaComponent } from './pages/constructor-encuesta/constructor-encuesta.component';
+import { DragDropModule } from '@angular/cdk/drag-drop';
 
 
 @NgModule({
@@ -33,13 +35,15 @@ import { VistaPreviaEncuestaComponent } from './pages/vista-previa-encuesta/vist
     PreguntasEncuestaComponent,
     OpinarComponent,
     RespuestasEncuestaComponent,
-    VistaPreviaEncuestaComponent
+    VistaPreviaEncuestaComponent,
+    ConstructorEncuestaComponent
   ],
   imports: [
     BrowserModule,
     AppRoutingModule,
     FormsModule,
     HttpClientModule,
+    DragDropModule,
     QRCodeModule
   ],
   providers: [

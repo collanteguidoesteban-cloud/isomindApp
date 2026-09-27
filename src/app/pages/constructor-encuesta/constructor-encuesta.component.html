@@ -1,0 +1,1167 @@
+
+<div class="constructor-page"
+     (click)="cerrarMenus()">
+
+  <!-- ================================================= -->
+  <!-- HEADER -->
+  <!-- ================================================= -->
+
+  <header class="constructor-header">
+
+    <div class="header-left">
+
+      <button type="button"
+              class="back-button"
+              (click)="volverDashboard(); $event.stopPropagation()">
+
+        ←
+        <span>Dashboard</span>
+
+      </button>
+
+      <div class="header-title">
+
+        <span class="section-label">
+          CONSTRUCTOR DE ENCUESTA
+        </span>
+
+        <h1>
+          Crear encuesta
+        </h1>
+
+        <p>
+          Organizá las preguntas y configurá cómo responderán tus usuarios.
+        </p>
+
+      </div>
+
+    </div>
+
+
+    <div class="header-actions">
+
+      <button type="button"
+              class="secondary-button"
+              (click)="verVistaPrevia(); $event.stopPropagation()">
+
+        👁
+        Vista previa
+
+      </button>
+
+      <button type="button"
+              class="primary-button"
+              (click)="abrirNuevaPregunta(); $event.stopPropagation()">
+
+        ＋
+        Agregar pregunta
+
+      </button>
+
+    </div>
+
+  </header>
+
+
+  <!-- ================================================= -->
+  <!-- CONTENIDO -->
+  <!-- ================================================= -->
+
+  <main class="constructor-content">
+
+
+    <!-- ================================================= -->
+    <!-- PANEL PREGUNTAS -->
+    <!-- ================================================= -->
+
+    <section class="questions-panel">
+
+      <div class="panel-header">
+
+        <div>
+
+          <span class="panel-label">
+            PREGUNTAS
+          </span>
+
+          <h2>
+            {{ preguntas.length }}
+
+            {{
+              preguntas.length === 1
+                ? 'pregunta'
+                : 'preguntas'
+            }}
+          </h2>
+
+        </div>
+
+        <span class="drag-help"
+              *ngIf="preguntas.length > 1">
+
+          ⋮⋮ Arrastrá para ordenar
+
+        </span>
+
+      </div>
+
+
+      <!-- ERROR -->
+
+      <div class="global-error"
+           *ngIf="error">
+
+        ⚠
+        {{ error }}
+
+      </div>
+
+
+      <!-- LOADING -->
+
+      <div class="loading"
+           *ngIf="cargando">
+
+        <div class="spinner"></div>
+
+        <span>
+          Cargando preguntas...
+        </span>
+
+      </div>
+
+
+      <!-- ================================================= -->
+      <!-- VACÍO -->
+      <!-- ================================================= -->
+
+      <div class="empty-state"
+           *ngIf="!cargando && preguntas.length === 0">
+
+        <div class="empty-icon">
+          📋
+        </div>
+
+        <h2>
+          Todavía no hay preguntas
+        </h2>
+
+        <p>
+          Comenzá creando la primera pregunta de tu encuesta.
+        </p>
+
+        <button type="button"
+                class="primary-button"
+                (click)="abrirNuevaPregunta(); $event.stopPropagation()">
+
+          ＋
+          Crear primera pregunta
+
+        </button>
+
+      </div>
+
+
+      <!-- ================================================= -->
+      <!-- LISTA DRAG DROP -->
+      <!-- ================================================= -->
+
+      <div class="questions-list"
+           *ngIf="!cargando && preguntas.length > 0"
+           cdkDropList
+           [cdkDropListData]="preguntas"
+           (cdkDropListDropped)="moverPregunta($event)">
+
+
+        <div class="question-card"
+             *ngFor="
+            let pregunta of preguntas;
+            let i = index
+          "
+             cdkDrag
+             (click)="$event.stopPropagation()">
+
+
+          <!-- PLACEHOLDER -->
+
+          <div class="drag-placeholder"
+               *cdkDragPlaceholder>
+          </div>
+
+
+          <!-- DRAG -->
+
+          <div class="drag-handle"
+               cdkDragHandle
+               title="Arrastrar pregunta">
+
+            ⋮⋮
+
+          </div>
+
+
+          <!-- NUMERO -->
+
+          <div class="question-number">
+
+            {{ i + 1 }}
+
+          </div>
+
+
+          <!-- CONTENIDO -->
+
+          <div class="question-main">
+
+            <div class="question-top">
+
+              <div class="question-type">
+
+                <span class="type-icon">
+                  {{ obtenerIconoTipo(pregunta.tipo) }}
+                </span>
+
+                {{ obtenerNombreTipo(pregunta.tipo) }}
+
+              </div>
+
+
+              <span class="status-badge"
+                    [class.inactive]="!pregunta.activa">
+
+                <span class="status-dot"></span>
+
+                {{
+                  pregunta.activa
+                    ? 'Activa'
+                    : 'Inactiva'
+                }}
+
+              </span>
+
+            </div>
+
+
+            <h3>
+              {{ pregunta.texto }}
+            </h3>
+
+
+            <div class="question-meta">
+
+              <span class="meta-required"
+                    *ngIf="pregunta.obligatoria">
+
+                ✓ Obligatoria
+
+              </span>
+
+              <span *ngIf="!pregunta.obligatoria">
+
+                Opcional
+
+              </span>
+
+              <span>
+                Pregunta {{ i + 1 }}
+              </span>
+
+            </div>
+
+          </div>
+
+
+          <!-- ACCIONES -->
+
+          <div class="question-actions"
+               (click)="$event.stopPropagation()">
+
+
+            <button type="button"
+                    class="icon-button"
+                    title="Editar"
+                    (click)="editarPregunta(pregunta)">
+
+              ✏️
+
+            </button>
+
+
+            <button type="button"
+                    class="icon-button"
+                    title="Duplicar"
+                    (click)="duplicarPregunta(pregunta)">
+
+              ⧉
+
+            </button>
+
+
+            <button type="button"
+                    class="icon-button menu-button"
+                    title="Más opciones"
+                    (click)="toggleMenuPregunta(pregunta.id)">
+
+              ⋮
+
+            </button>
+
+
+            <!-- MENU -->
+
+            <div class="question-menu"
+                 *ngIf="
+                menuPreguntaAbierto === pregunta.id
+              "
+                 (click)="$event.stopPropagation()">
+
+              <button type="button"
+                      (click)="editarPregunta(pregunta)">
+
+                ✏️
+                Editar
+
+              </button>
+
+              <button type="button"
+                      (click)="duplicarPregunta(pregunta)">
+
+                ⧉
+                Duplicar
+
+              </button>
+
+              <button type="button"
+                      class="danger"
+                      (click)="eliminarPregunta(pregunta)">
+
+                🗑
+                Eliminar
+
+              </button>
+
+            </div>
+
+
+          </div>
+
+        </div>
+
+      </div>
+
+    </section>
+
+
+    <!-- ================================================= -->
+    <!-- PREVIEW -->
+    <!-- ================================================= -->
+
+    <aside class="preview-panel">
+
+      <div class="preview-header">
+
+        <div>
+
+          <span class="panel-label">
+            VISTA EN VIVO
+          </span>
+
+          <h2>
+            Así se verá tu encuesta
+          </h2>
+
+        </div>
+
+        <span class="live-dot">
+          ● En vivo
+        </span>
+
+      </div>
+
+
+      <div class="preview-area">
+
+        <div class="preview-phone">
+
+
+          <!-- TOP PHONE -->
+
+          <div class="phone-top">
+
+            <span></span>
+
+          </div>
+
+
+          <!-- CONTENT -->
+
+          <div class="preview-content">
+
+            <div class="preview-brand">
+              ISOMIND
+            </div>
+
+            <h2 class="preview-title">
+              Encuesta
+            </h2>
+
+            <p class="preview-description">
+              Queremos conocer tu opinión.
+            </p>
+
+
+            <!-- PREGUNTAS -->
+
+            <div class="preview-question"
+                 *ngFor="
+                let pregunta of preguntas;
+                let i = index
+              ">
+
+
+              <div class="preview-question-number">
+
+                Pregunta {{ i + 1 }}
+
+                <span *ngIf="pregunta.obligatoria">
+
+                  *
+
+                </span>
+
+              </div>
+
+
+              <div class="preview-question-text">
+
+                {{ pregunta.texto }}
+
+              </div>
+
+
+              <!-- CALIFICACION -->
+
+              <div class="preview-rating"
+                   *ngIf="
+                  pregunta.tipo ===
+                  'CALIFICACION'
+                ">
+
+                <button type="button">😡</button>
+                <button type="button">😕</button>
+                <button type="button">😐</button>
+                <button type="button">🙂</button>
+                <button type="button">😍</button>
+
+              </div>
+
+
+              <!-- TEXTO -->
+
+              <div class="preview-text-input"
+                   *ngIf="
+                  pregunta.tipo ===
+                  'TEXTO'
+                ">
+
+                Escribí tu respuesta...
+
+              </div>
+
+
+              <!-- OPCIONES -->
+
+              <div class="preview-options"
+                   *ngIf="
+                  pregunta.tipo ===
+                  'OPCION'
+                ">
+
+                <div class="preview-option"
+                     *ngFor="
+                    let opcion of opcionesPregunta
+                  ">
+
+                  <span class="radio-circle">
+                    ○
+                  </span>
+
+                  {{ opcion.texto }}
+
+                </div>
+
+                <div class="preview-option"
+                     *ngIf="
+                    obtenerOpcionesPreview(pregunta).length === 0
+                  ">
+
+                  <span class="radio-circle">
+                    ○
+                  </span>
+
+                  Tus opciones aparecerán aquí
+
+                </div>
+
+              </div>
+
+
+              <!-- EMPLEADO -->
+
+              <div class="preview-employee"
+                   *ngIf="
+                  pregunta.tipo ===
+                  'EMPLEADO'
+                ">
+
+                <div class="employee-preview-item">
+                  👤 Seleccionar empleado
+                </div>
+
+              </div>
+
+
+            </div>
+
+
+            <!-- SIN PREGUNTAS -->
+
+            <div class="preview-empty"
+                 *ngIf="preguntas.length === 0">
+
+              <span>
+                📋
+              </span>
+
+              <p>
+                Agregá preguntas para comenzar a ver la encuesta.
+              </p>
+
+            </div>
+
+
+            <button type="button"
+                    class="preview-submit"
+                    *ngIf="preguntas.length > 0">
+
+              Enviar respuesta
+
+            </button>
+
+          </div>
+
+        </div>
+
+      </div>
+
+    </aside>
+
+  </main>
+
+
+  <!-- ================================================= -->
+  <!-- MODAL PREGUNTA -->
+  <!-- ================================================= -->
+
+  <div class="modal-overlay"
+       *ngIf="mostrarFormulario"
+       (click)="cerrarModalDesdeFondo($event)">
+
+
+    <div class="question-modal"
+         (click)="$event.stopPropagation()">
+
+
+      <!-- MODAL HEADER -->
+
+      <div class="modal-header">
+
+        <div>
+
+          <span class="modal-label">
+
+            {{
+              modoEdicion
+                ? 'EDITAR PREGUNTA'
+                : 'NUEVA PREGUNTA'
+            }}
+
+          </span>
+
+          <h2>
+
+            {{
+              modoEdicion
+                ? 'Editar pregunta'
+                : 'Crear pregunta'
+            }}
+
+          </h2>
+
+        </div>
+
+
+        <button type="button"
+                class="close-button"
+                (click)="cancelarPregunta()">
+
+          ×
+
+        </button>
+
+      </div>
+
+
+      <!-- MODAL BODY -->
+
+      <div class="modal-body">
+
+
+        <!-- ERROR -->
+
+        <div class="modal-error"
+             *ngIf="errorPregunta">
+
+          ⚠
+          {{ errorPregunta }}
+
+        </div>
+
+
+        <!-- TEXTO -->
+
+        <div class="form-group">
+
+          <label>
+            Pregunta
+            <span>*</span>
+          </label>
+
+          <textarea [(ngModel)]="textoPregunta"
+                    rows="4"
+                    maxlength="500"
+                    placeholder="Escribí el texto de la pregunta...">
+          </textarea>
+
+          <div class="field-hint">
+            La pregunta debe ser clara y fácil de responder.
+          </div>
+
+        </div>
+
+
+        <!-- TIPO -->
+
+        <div class="form-group">
+
+          <label>
+            Tipo de respuesta
+          </label>
+
+          <div class="type-grid">
+
+
+            <button type="button"
+                    class="type-card"
+                    [class.selected]="
+                tipoPregunta === 'CALIFICACION'
+              "
+                    (click)="tipoPregunta = 'CALIFICACION'; cambiarTipoPregunta()">
+
+              <span>⭐</span>
+
+              <strong>
+                Calificación
+              </strong>
+
+              <small>
+                Emojis / valoración
+              </small>
+
+            </button>
+
+
+            <button type="button"
+                    class="type-card"
+                    [class.selected]="
+                tipoPregunta === 'OPCION'
+              "
+                    (click)="tipoPregunta = 'OPCION'; cambiarTipoPregunta()">
+
+              <span>🔘</span>
+
+              <strong>
+                Opciones
+              </strong>
+
+              <small>
+                Una opción
+              </small>
+
+            </button>
+
+
+            <button type="button"
+                    class="type-card"
+                    [class.selected]="
+                tipoPregunta === 'EMPLEADO'
+              "
+                    (click)="tipoPregunta = 'EMPLEADO'; cambiarTipoPregunta()">
+
+              <span>👤</span>
+
+              <strong>
+                Empleado
+              </strong>
+
+              <small>
+                Seleccionar empleado
+              </small>
+
+            </button>
+
+
+            <button type="button"
+                    class="type-card"
+                    [class.selected]="
+                tipoPregunta === 'TEXTO'
+              "
+                    (click)="tipoPregunta = 'TEXTO'; cambiarTipoPregunta()">
+
+              <span>✍️</span>
+
+              <strong>
+                Texto
+              </strong>
+
+              <small>
+                Respuesta libre
+              </small>
+
+            </button>
+
+
+          </div>
+
+        </div>
+
+
+        <!-- ================================================= -->
+        <!-- OPCIONES -->
+        <!-- ================================================= -->
+
+        <div class="special-section"
+             *ngIf="
+            tipoPregunta === 'OPCION'
+          ">
+
+          <div class="special-header">
+
+            <div>
+
+              <h3>
+                Opciones de respuesta
+              </h3>
+
+              <p>
+                Agregá las opciones que podrá seleccionar el usuario.
+              </p>
+
+            </div>
+
+            <span>
+              {{ opcionesPregunta.length }}
+            </span>
+
+          </div>
+
+
+          <div class="option-add">
+
+            <input type="text"
+                   [(ngModel)]="nuevaOpcion"
+                   placeholder="Nueva opción..."
+                   maxlength="150"
+                   (keyup.enter)="agregarOpcion()" />
+
+            <button type="button"
+                    class="small-primary"
+                    (click)="agregarOpcion()">
+
+              + Agregar
+
+            </button>
+
+          </div>
+
+
+          <div class="options-list"
+               *ngIf="
+               opcionesPregunta.length>
+            0
+            ">
+
+            <div class="option-item"
+                 *ngFor="
+                let opcion of opcionesPregunta;
+                let i = index
+              ">
+
+              <span class="option-number">
+                {{ i + 1 }}
+              </span>
+
+              <span class="option-text">
+                {{ opcion.texto }}
+              </span>
+
+              <button type="button"
+                      (click)="eliminarOpcion(i)">
+
+                ×
+
+              </button>
+
+            </div>
+
+          </div>
+
+
+          <div class="section-empty"
+               *ngIf="
+              opcionesPregunta.length === 0
+            ">
+
+            Todavía no agregaste opciones.
+
+          </div>
+
+        </div>
+
+
+        <!-- ================================================= -->
+        <!-- EMPLEADOS -->
+        <!-- ================================================= -->
+
+        <div class="special-section"
+             *ngIf="
+            tipoPregunta === 'EMPLEADO'
+          ">
+
+          <div class="special-header">
+
+            <div>
+
+              <h3>
+                Empleados disponibles
+              </h3>
+
+              <p>
+                Seleccioná quiénes podrán aparecer en la encuesta.
+              </p>
+
+            </div>
+
+            <button type="button"
+                    class="small-primary"
+                    (click)="abrirNuevoEmpleado()">
+
+              + Nuevo empleado
+
+            </button>
+
+          </div>
+
+
+          <div class="loading-small"
+               *ngIf="cargandoEmpleados">
+
+            Cargando empleados...
+
+          </div>
+
+
+          <div class="employees-list"
+               *ngIf="
+              !cargandoEmpleados
+            ">
+
+
+            <button type="button"
+                    class="employee-item"
+                    *ngFor="
+                let empleado of empleados
+              "
+                    [class.selected]="
+                empleadoSeleccionado(empleado)
+              "
+                    (click)="cambiarEmpleadoSeleccionado(empleado)">
+
+
+              <span class="employee-avatar">
+
+                {{
+                  empleado.nombre
+                    ? empleado.nombre.charAt(0).toUpperCase()
+                    : '?'
+                }}
+
+              </span>
+
+
+              <span class="employee-info">
+
+                <strong>
+                  {{ empleado.nombre }}
+                  {{ empleado.apellido }}
+                </strong>
+
+                <small>
+                  Empleado
+                </small>
+
+              </span>
+
+
+              <span class="employee-check"
+                    *ngIf="
+                  empleadoSeleccionado(empleado)
+                ">
+
+                ✓
+
+              </span>
+
+            </button>
+
+
+            <div class="section-empty"
+                 *ngIf="
+                empleados.length === 0
+              ">
+
+              No hay empleados cargados.
+
+            </div>
+
+          </div>
+
+        </div>
+
+
+        <!-- ================================================= -->
+        <!-- CONFIGURACION -->
+        <!-- ================================================= -->
+
+        <div class="settings-section">
+
+          <div class="setting-row">
+
+            <div>
+
+              <strong>
+                Pregunta obligatoria
+              </strong>
+
+              <span>
+                El usuario deberá responderla.
+              </span>
+
+            </div>
+
+            <label class="switch">
+
+              <input type="checkbox"
+                     [(ngModel)]="obligatoria" />
+
+              <span class="slider"></span>
+
+            </label>
+
+          </div>
+
+
+          <div class="setting-row">
+
+            <div>
+
+              <strong>
+                Pregunta activa
+              </strong>
+
+              <span>
+                Se mostrará cuando la encuesta esté disponible.
+              </span>
+
+            </div>
+
+            <label class="switch">
+
+              <input type="checkbox"
+                     [(ngModel)]="activa" />
+
+              <span class="slider"></span>
+
+            </label>
+
+          </div>
+
+        </div>
+
+      </div>
+
+
+      <!-- MODAL FOOTER -->
+
+      <div class="modal-footer">
+
+        <button type="button"
+                class="cancel-button"
+                (click)="cancelarPregunta()">
+
+          Cancelar
+
+        </button>
+
+
+        <button type="button"
+                class="primary-button"
+                [disabled]="guardandoPregunta"
+                (click)="guardarPregunta()">
+
+          <span *ngIf="!guardandoPregunta">
+
+            {{
+              modoEdicion
+                ? 'Guardar cambios'
+                : 'Crear pregunta'
+            }}
+
+          </span>
+
+          <span *ngIf="guardandoPregunta">
+
+            Guardando...
+
+          </span>
+
+        </button>
+
+      </div>
+
+    </div>
+
+  </div>
+
+
+  <!-- ================================================= -->
+  <!-- MODAL EMPLEADO -->
+  <!-- ================================================= -->
+
+  <div class="modal-overlay small-overlay"
+       *ngIf="mostrarFormularioEmpleado"
+       (click)="cancelarEmpleado()">
+
+
+    <div class="employee-modal"
+         (click)="$event.stopPropagation()">
+
+
+      <div class="modal-header">
+
+        <div>
+
+          <span class="modal-label">
+            NUEVO EMPLEADO
+          </span>
+
+          <h2>
+            Agregar empleado
+          </h2>
+
+        </div>
+
+        <button type="button"
+                class="close-button"
+                (click)="cancelarEmpleado()">
+
+          ×
+
+        </button>
+
+      </div>
+
+
+      <div class="employee-modal-body">
+
+
+        <div class="modal-error"
+             *ngIf="errorEmpleado">
+
+          ⚠
+          {{ errorEmpleado }}
+
+        </div>
+
+
+        <div class="form-group">
+
+          <label>
+            Nombre
+            <span>*</span>
+          </label>
+
+          <input type="text"
+                 [(ngModel)]="nombreEmpleado"
+                 placeholder="Nombre" />
+
+        </div>
+
+
+        <div class="form-group">
+
+          <label>
+            Apellido
+            <span>*</span>
+          </label>
+
+          <input type="text"
+                 [(ngModel)]="apellidoEmpleado"
+                 placeholder="Apellido" />
+
+        </div>
+
+      </div>
+
+
+      <div class="modal-footer">
+
+        <button type="button"
+                class="cancel-button"
+                (click)="cancelarEmpleado()">
+
+          Cancelar
+
+        </button>
+
+        <button type="button"
+                class="primary-button"
+                [disabled]="guardandoEmpleado"
+                (click)="guardarEmpleado()">
+
+          {{
+            guardandoEmpleado
+              ? 'Guardando...'
+              : 'Guardar empleado'
+          }}
+
+        </button>
+
+      </div>
+
+    </div>
+
+  </div>
+
+</div>
+

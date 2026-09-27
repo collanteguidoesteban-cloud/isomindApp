@@ -11,6 +11,7 @@ import { PreguntasEncuestaComponent } from './pages/preguntas-encuesta/preguntas
 import { OpinarComponent } from './pages/opinar/opinar.component';
 import { RespuestasEncuestaComponent } from './pages/respuestas-encuesta/respuestas-encuesta.component';
 import { VistaPreviaEncuestaComponent } from './pages/vista-previa-encuesta/vista-previa-encuesta.component';
+import { ConstructorEncuestaComponent } from './pages/constructor-encuesta/constructor-encuesta.component';
 
 const routes: Routes = [
   {
@@ -60,6 +61,11 @@ const routes: Routes = [
   {
     path: 'dashboard/encuesta/:idEncuesta/vista-previa',
     component: VistaPreviaEncuestaComponent
+  },
+
+  {
+    path: 'dashboard/encuesta/:idEncuesta/constructor',
+    component: ConstructorEncuestaComponent
   },
 
 

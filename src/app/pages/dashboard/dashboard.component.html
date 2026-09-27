@@ -83,11 +83,22 @@
         </a>
 
 
+        <!-- CREAR ENCUESTA VIEJO -->
         <button type="button"
                 class="primary-button menu-create-button"
                 (click)="crearEncuesta(); cerrarMenu()">
 
           ＋ Crear encuesta
+
+        </button>
+
+
+        <!-- CREAR ENCUESTA CONSTRUCTOR -->
+        <button type="button"
+                class="primary-button menu-create-button constructor-menu-button"
+                (click)="crearEncuestaConstructor(); cerrarMenu()">
+
+          🛠️ Crear con constructor
 
         </button>
 
@@ -404,11 +415,22 @@
           </div>
 
 
+          <!-- BOTÓN VIEJO -->
           <button type="button"
                   class="secondary-button"
                   (click)="crearEncuesta()">
 
             Crear encuesta
+
+          </button>
+
+
+          <!-- BOTÓN NUEVO -->
+          <button type="button"
+                  class="secondary-button constructor-button"
+                  (click)="crearEncuestaConstructor()">
+
+            🛠️ Constructor
 
           </button>
 
@@ -482,6 +504,7 @@
             <div class="survey-footer">
 
 
+              <!-- BOTÓN VIEJO -->
               <button type="button"
                       class="secondary-button"
                       [routerLink]="[
@@ -490,11 +513,26 @@
                         'preguntas'
                       ]">
 
-                Ver preguntas
+                📝 Ver preguntas
 
               </button>
 
 
+              <!-- BOTÓN NUEVO -->
+              <button type="button"
+                      class="secondary-button constructor-button"
+                      [routerLink]="[
+                        '/dashboard/encuesta',
+                        encuesta.id,
+                        'constructor'
+                      ]">
+
+                🛠️ Constructor
+
+              </button>
+
+
+              <!-- RESPUESTAS -->
               <button type="button"
                       class="secondary-button"
                       [routerLink]="[
@@ -513,7 +551,10 @@
           </div>
 
 
-          <!-- CREAR ENCUESTA -->
+          <!-- ==========================================
+               CREAR ENCUESTA
+               ========================================== -->
+
           <div class="new-survey-card">
 
             <div class="new-survey-icon">
@@ -532,15 +573,33 @@
             </p>
 
 
-            <button type="button"
-                    class="secondary-button"
-                    (click)="crearEncuesta()">
+            <div class="new-survey-buttons">
 
-              Crear encuesta
 
-            </button>
+              <!-- BOTÓN VIEJO -->
+              <button type="button"
+                      class="secondary-button"
+                      (click)="crearEncuesta()">
+
+                Crear encuesta
+
+              </button>
+
+
+              <!-- BOTÓN NUEVO -->
+              <button type="button"
+                      class="secondary-button constructor-button"
+                      (click)="crearEncuestaConstructor()">
+
+                🛠️ Constructor
+
+              </button>
+
+
+            </div>
 
           </div>
+
 
         </div>
 
@@ -568,6 +627,7 @@
           <div class="quick-actions">
 
 
+            <!-- CREAR ENCUESTA VIEJO -->
             <button type="button"
                     class="quick-action"
                     (click)="crearEncuesta()">
@@ -591,6 +651,31 @@
             </button>
 
 
+            <!-- CREAR ENCUESTA CONSTRUCTOR -->
+            <button type="button"
+                    class="quick-action"
+                    (click)="crearEncuestaConstructor()">
+
+              <span class="quick-icon">
+                🛠️
+              </span>
+
+              <div>
+
+                <strong>
+                  Crear con constructor
+                </strong>
+
+                <small>
+                  Crear una encuesta usando el nuevo constructor
+                </small>
+
+              </div>
+
+            </button>
+
+
+            <!-- RESPUESTAS -->
             <button type="button"
                     class="quick-action">
 
@@ -613,6 +698,7 @@
             </button>
 
 
+            <!-- ESTADISTICAS -->
             <button type="button"
                     class="quick-action">
 

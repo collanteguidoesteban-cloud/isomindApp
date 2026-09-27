@@ -344,7 +344,34 @@ export class DashboardComponent implements OnInit {
 
 
 
+  crearEncuestaConstructor(): void {
 
+    if (!this.local) {
+
+      console.log('NO HAY LOCAL SELECCIONADO');
+
+      return;
+    }
+
+    localStorage.setItem(
+      'localSeleccionado',
+      this.local.id.toString()
+    );
+
+    console.log(
+      'CREANDO ENCUESTA PARA CONSTRUCTOR:',
+      this.local
+    );
+
+    sessionStorage.setItem(
+      'abrirConstructor',
+      'true'
+    );
+
+    this.router.navigate([
+      '/dashboard/crear-encuesta'
+    ]);
+  }
 
 
 
