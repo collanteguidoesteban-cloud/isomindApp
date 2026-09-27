@@ -1,0 +1,122 @@
+<div class="crear-encuesta-page">
+
+  <div class="crear-encuesta-header">
+
+    <button type="button"
+            class="back-button"
+            routerLink="/dashboard">
+      ← Volver al dashboard
+    </button>
+
+    <h1>Crear una nueva encuesta</h1>
+
+    <p>
+      Creá una encuesta para comenzar a recibir opiniones de tus clientes.
+    </p>
+
+  </div>
+
+  <div class="crear-encuesta-card">
+
+    <div class="card-title">
+
+      <div class="title-icon">
+        📋
+      </div>
+
+      <div>
+        <h2>Datos de la encuesta</h2>
+
+        <p>
+          Completá la información básica de tu encuesta.
+        </p>
+      </div>
+
+    </div>
+
+    <div class="error-message"
+         *ngIf="error">
+
+      {{ error }}
+
+    </div>
+
+    <form (ngSubmit)="crearEncuesta()">
+
+      <div class="form-group">
+
+        <label>
+          Título de la encuesta <span>*</span>
+        </label>
+
+        <input type="text"
+               placeholder="Ej: ¿Cómo fue tu experiencia?"
+               [(ngModel)]="titulo"
+               name="titulo"
+               required>
+
+      </div>
+
+      <div class="form-group">
+
+        <label>
+          Descripción
+        </label>
+
+        <textarea placeholder="Contale a tus clientes qué querés conocer con esta encuesta..."
+                  [(ngModel)]="descripcion"
+                  name="descripcion"
+                  rows="5">
+        </textarea>
+
+      </div>
+
+      <div class="active-option">
+
+        <div>
+
+          <strong>
+            Encuesta activa
+          </strong>
+
+          <small>
+            Si está activa, tus clientes podrán responderla.
+          </small>
+
+        </div>
+
+        <label class="switch">
+
+          <input type="checkbox"
+                 [(ngModel)]="activa"
+                 name="activa">
+
+          <span class="slider"></span>
+
+        </label>
+
+      </div>
+
+      <div class="form-actions">
+
+        <button type="button"
+                class="secondary-button"
+                routerLink="/dashboard">
+          Cancelar
+        </button>
+
+        <button type="submit"
+                class="primary-button"
+                [disabled]="guardando">
+
+          {{ guardando ? 'Creando...' : 'Crear encuesta' }}
+
+        </button>
+
+      </div>
+
+    </form>
+
+  </div>
+
+</div>

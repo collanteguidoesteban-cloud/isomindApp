@@ -1,0 +1,600 @@
+<header class="navbar">
+  <div class="container navbar-content">
+
+    <a class="logo" routerLink="/">
+      ISOMIND
+    </a>
+
+    <nav class="desktop-menu">
+      <a href="#inicio">Inicio</a>
+      <a href="#como-funciona">Cómo funciona</a>
+      <a href="#beneficios">Beneficios</a>
+    </nav>
+
+    <div class="desktop-actions">
+
+      <a routerLink="/login"
+         class="login-link">
+        Ingresar
+      </a>
+
+      <a routerLink="/registro"
+         class="btn btn-primary">
+        Crear cuenta
+      </a>
+
+    </div>
+
+    <button class="mobile-menu-button"
+            type="button"
+            (click)="menuOpen = !menuOpen">
+      ☰
+    </button>
+
+  </div>
+
+
+  <div class="mobile-menu"
+       *ngIf="menuOpen">
+
+    <a href="#inicio"
+       (click)="menuOpen = false">
+      Inicio
+    </a>
+
+    <a href="#como-funciona"
+       (click)="menuOpen = false">
+      Cómo funciona
+    </a>
+
+    <a href="#beneficios"
+       (click)="menuOpen = false">
+      Beneficios
+    </a>
+
+    <a routerLink="/login"
+       (click)="menuOpen = false">
+      Ingresar
+    </a>
+
+    <a routerLink="/login"
+       class="mobile-button"
+       (click)="menuOpen = false">
+      Crear cuenta
+    </a>
+
+  </div>
+
+</header>
+
+
+<main>
+
+  <!-- =========================
+       HERO
+  ========================== -->
+
+  <section id="inicio"
+           class="hero">
+
+    <div class="container hero-content">
+
+
+      <!-- TEXTO -->
+
+      <div class="hero-text">
+
+        <span class="hero-badge">
+          Encuestas inteligentes para tu negocio
+        </span>
+
+        <h1>
+          Conocé lo que piensan
+          <span>tus clientes</span>
+        </h1>
+
+        <p>
+          Creá encuestas simples, recibí respuestas
+          y obtené información que te ayude a mejorar
+          la experiencia de tus clientes.
+        </p>
+
+        <div class="hero-buttons">
+
+          <a routerLink="/login"
+             class="btn btn-primary btn-large">
+            Crear mi encuesta
+          </a>
+
+          <a href="#como-funciona"
+             class="btn btn-secondary btn-large">
+            Cómo funciona
+          </a>
+
+        </div>
+
+      </div>
+
+
+      <!-- =========================
+           HERO VISUAL
+      ========================== -->
+
+      <div class="hero-visual">
+
+
+        <!-- TARJETA PRINCIPAL -->
+
+        <div class="experience-card">
+
+          <div class="experience-header">
+
+            <div class="experience-logo">
+              I
+            </div>
+
+            <div>
+
+              <strong>
+                Experiencia del cliente
+              </strong>
+
+              <span>
+                Últimas respuestas
+              </span>
+
+            </div>
+
+          </div>
+
+
+          <!-- CALIFICACION -->
+
+          <div class="experience-rating">
+
+            <div class="rating-number">
+              4.8
+            </div>
+
+            <div class="rating-info">
+
+              <div class="rating-stars">
+                ★★★★★
+              </div>
+
+              <span>
+                Excelente satisfacción
+              </span>
+
+            </div>
+
+          </div>
+
+
+          <!-- BARRAS -->
+
+          <div class="rating-bars">
+
+            <div class="rating-bar">
+
+              <span>5</span>
+
+              <div class="bar">
+                <div class="bar-fill bar-5"></div>
+              </div>
+
+              <small>82%</small>
+
+            </div>
+
+
+            <div class="rating-bar">
+
+              <span>4</span>
+
+              <div class="bar">
+                <div class="bar-fill bar-4"></div>
+              </div>
+
+              <small>12%</small>
+
+            </div>
+
+
+            <div class="rating-bar">
+
+              <span>3</span>
+
+              <div class="bar">
+                <div class="bar-fill bar-3"></div>
+              </div>
+
+              <small>4%</small>
+
+            </div>
+
+
+            <div class="rating-bar">
+
+              <span>2</span>
+
+              <div class="bar">
+                <div class="bar-fill bar-2"></div>
+              </div>
+
+              <small>2%</small>
+
+            </div>
+
+          </div>
+
+
+          <!-- ULTIMA OPINION -->
+
+          <div class="experience-comment">
+
+            <div class="comment-avatar">
+              M
+            </div>
+
+            <div class="comment-content">
+
+              <strong>
+                Cliente
+              </strong>
+
+              <p>
+                "Muy buena atención y excelente servicio."
+              </p>
+
+            </div>
+
+            <div class="comment-check">
+              ✓
+            </div>
+
+          </div>
+
+        </div>
+
+
+        <!-- TARJETA FLOTANTE -->
+
+        <div class="floating-card floating-card-top">
+
+          <div class="floating-icon">
+            ✓
+          </div>
+
+          <div>
+
+            <strong>
+              Nueva respuesta
+            </strong>
+
+            <span>
+              Hace 2 minutos
+            </span>
+
+          </div>
+
+        </div>
+
+
+        <!-- TARJETA FLOTANTE INFERIOR -->
+
+        <div class="floating-card floating-card-bottom">
+
+          <div class="mini-chart">
+
+            <span></span>
+            <span></span>
+            <span></span>
+            <span></span>
+            <span></span>
+
+          </div>
+
+          <div>
+
+            <strong>
+              +24%
+            </strong>
+
+            <span>
+              satisfacción
+            </span>
+
+          </div>
+
+        </div>
+
+
+      </div>
+
+    </div>
+
+  </section>
+
+
+  <!-- =========================
+       ESTADISTICAS
+  ========================== -->
+
+  <section class="stats">
+
+    <div class="container stats-grid">
+
+      <div class="stat-card">
+
+        <strong>128</strong>
+
+        <span>
+          Clientes
+        </span>
+
+      </div>
+
+
+      <div class="stat-card">
+
+        <strong>542</strong>
+
+        <span>
+          Respuestas
+        </span>
+
+      </div>
+
+
+      <div class="stat-card">
+
+        <strong>23</strong>
+
+        <span>
+          Encuestas activas
+        </span>
+
+      </div>
+
+
+      <div class="stat-card">
+
+        <strong>96%</strong>
+
+        <span>
+          Satisfacción
+        </span>
+
+      </div>
+
+    </div>
+
+  </section>
+
+
+  <!-- =========================
+       COMO FUNCIONA
+  ========================== -->
+
+  <section id="como-funciona"
+           class="section">
+
+    <div class="container">
+
+      <div class="section-title">
+
+        <span>
+          MUY SIMPLE
+        </span>
+
+        <h2>
+          ¿Cómo funciona?
+        </h2>
+
+        <p>
+          Tres pasos para comenzar a conocer
+          mejor a tus clientes.
+        </p>
+
+      </div>
+
+
+      <div class="steps">
+
+
+        <div class="step">
+
+          <div class="step-number">
+            01
+          </div>
+
+          <h3>
+            Creá tu encuesta
+          </h3>
+
+          <p>
+            Elegí las preguntas que querés
+            realizar a tus clientes.
+          </p>
+
+        </div>
+
+
+        <div class="step">
+
+          <div class="step-number">
+            02
+          </div>
+
+          <h3>
+            Compartila
+          </h3>
+
+          <p>
+            Compartí tu encuesta mediante
+            un link o código QR.
+          </p>
+
+        </div>
+
+
+        <div class="step">
+
+          <div class="step-number">
+            03
+          </div>
+
+          <h3>
+            Analizá
+          </h3>
+
+          <p>
+            Visualizá las respuestas y
+            descubrí qué opinan tus clientes.
+          </p>
+
+        </div>
+
+
+      </div>
+
+    </div>
+
+  </section>
+
+
+  <!-- =========================
+       BENEFICIOS
+  ========================== -->
+
+  <section id="beneficios"
+           class="section section-gray">
+
+    <div class="container">
+
+      <div class="section-title">
+
+        <span>
+          TODO EN UN SOLO LUGAR
+        </span>
+
+        <h2>
+          Herramientas para conocer a tus clientes
+        </h2>
+
+      </div>
+
+
+      <div class="benefits">
+
+
+        <div class="benefit-card">
+
+          <div class="benefit-icon">
+            📋
+          </div>
+
+          <h3>
+            Encuestas
+          </h3>
+
+          <p>
+            Creá y administrá todas tus
+            encuestas desde un mismo lugar.
+          </p>
+
+        </div>
+
+
+        <div class="benefit-card">
+
+          <div class="benefit-icon">
+            👥
+          </div>
+
+          <h3>
+            Clientes
+          </h3>
+
+          <p>
+            Conocé quiénes responden tus
+            encuestas y sus opiniones.
+          </p>
+
+        </div>
+
+
+        <div class="benefit-card">
+
+          <div class="benefit-icon">
+            📊
+          </div>
+
+          <h3>
+            Reportes
+          </h3>
+
+          <p>
+            Transformá las respuestas en
+            información útil para tu negocio.
+          </p>
+
+        </div>
+
+
+      </div>
+
+    </div>
+
+  </section>
+
+
+  <!-- =========================
+       CTA
+  ========================== -->
+
+  <section class="cta">
+
+    <div class="container cta-content">
+
+      <h2>
+        Empezá a conocer mejor a tus clientes
+      </h2>
+
+      <p>
+        Creá tu primera encuesta y comenzá
+        a obtener información.
+      </p>
+
+      <a routerLink="/login"
+         class="btn btn-white">
+        Crear mi cuenta
+      </a>
+
+    </div>
+
+  </section>
+
+</main>
+
+
+<!-- =========================
+     FOOTER
+========================== -->
+
+<footer>
+
+  <div class="container footer-content">
+
+    <div class="footer-logo">
+      ISOMIND
+    </div>
+
+    <div>
+      © 2026 IsomindEncuesta
+    </div>
+
+  </div>
+
+</footer>

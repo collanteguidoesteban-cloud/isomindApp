@@ -1,0 +1,709 @@
+
+<div class="preguntas-page">
+
+  <!-- HEADER -->
+
+  <div class="preguntas-header">
+
+    <button type="button"
+            class="back-button"
+            (click)="volverDashboard()">
+      ← Volver al dashboard
+    </button>
+
+    <div class="header-content">
+
+      <!-- INFORMACIÓN -->
+      <div class="header-info">
+
+        <span class="section-label">
+          CONFIGURACIÓN DE ENCUESTA
+        </span>
+
+        <h1>
+          Preguntas
+        </h1>
+
+        <p>
+          Agregá y configurá las preguntas que responderán tus clientes.
+        </p>
+
+      </div>
+
+
+      <!-- BOTONES -->
+      <div class="header-buttons">
+
+        <button type="button"
+                class="secondary-button"
+                (click)="verVistaPrevia()">
+
+          <span class="button-icon">👁</span>
+          <span>Ver cómo queda</span>
+
+        </button>
+
+
+        <button type="button"
+                class="primary-button"
+                (click)="agregarPregunta()">
+
+          <span class="button-plus">＋</span>
+          <span>Agregar pregunta</span>
+
+        </button>
+
+      </div>
+
+    </div>
+
+  </div>
+
+
+  <!-- ERROR GENERAL -->
+
+  <div class="error-message"
+       *ngIf="error">
+
+    {{ error }}
+
+  </div>
+
+
+  <!-- FORMULARIO NUEVA PREGUNTA -->
+
+  <div class="pregunta-form-card"
+       *ngIf="mostrarFormulario">
+
+    <div class="form-card-header">
+
+      <div>
+
+        <span class="section-label">
+          {{ modoEdicion ? 'EDITAR PREGUNTA' : 'NUEVA PREGUNTA' }}
+        </span>
+
+        <h2>
+          {{ modoEdicion ? 'Editar pregunta' : 'Agregar pregunta' }}
+        </h2>
+
+        <p>
+          Configurá la pregunta que responderán tus clientes.
+        </p>
+
+      </div>
+
+    </div>
+
+
+    <!-- ERROR DE PREGUNTA -->
+
+    <div class="error-message"
+         *ngIf="errorPregunta">
+
+      {{ errorPregunta }}
+
+    </div>
+
+
+    <form>
+
+      <!-- TEXTO -->
+
+      <div class="form-group">
+
+        <label>
+          Pregunta <span>*</span>
+        </label>
+
+        <input type="text"
+               placeholder="Ej: ¿Cómo calificarías la atención recibida?"
+               [(ngModel)]="textoPregunta"
+               name="textoPregunta">
+
+      </div>
+
+
+      <!-- TIPO -->
+
+      <div class="form-group">
+
+        <label>
+          Tipo de pregunta
+        </label>
+
+        <select [(ngModel)]="tipoPregunta"
+                name="tipoPregunta"
+                (change)="cambiarTipoPregunta()">
+
+          <option value="CALIFICACION">
+            Calificación
+          </option>
+
+          <option value="EMPLEADO">
+            Empleado
+          </option>
+
+          <option value="OPCION">
+            Opción
+          </option>
+
+          <option value="TEXTO">
+            Texto libre
+          </option>
+
+        </select>
+
+      </div>
+
+
+      <!-- OPCIONES -->
+
+      <div class="opciones-config"
+           *ngIf="tipoPregunta === 'OPCION'">
+
+        <div class="opciones-header">
+
+          <div>
+
+            <label>
+              Opciones de respuesta
+            </label>
+
+            <p>
+              Agregá las opciones que podrá elegir el cliente.
+            </p>
+
+          </div>
+
+        </div>
+
+
+        <!-- LISTA DE OPCIONES -->
+
+        <div class="opciones-lista"
+             *ngIf="opcionesPregunta.length > 0">
+
+          <div class="opcion-item"
+               *ngFor="
+                 let opcion of opcionesPregunta;
+                 let i = index
+               ">
+
+            <span class="opcion-orden">
+              {{ i + 1 }}
+            </span>
+
+            <input type="text"
+                   [(ngModel)]="opcion.texto"
+                   [name]="'opcion_' + i"
+                   placeholder="Texto de la opción">
+
+            <button type="button"
+                    class="action-button delete"
+                    (click)="eliminarOpcion(i)">
+
+              Eliminar
+
+            </button>
+
+          </div>
+
+        </div>
+
+
+        <!-- SIN OPCIONES -->
+
+        <div class="opciones-empty"
+             *ngIf="opcionesPregunta.length === 0">
+
+          <p>
+            Todavía no hay opciones agregadas.
+          </p>
+
+        </div>
+
+
+        <!-- AGREGAR OPCIÓN -->
+
+        <div class="opcion-nueva">
+
+          <input type="text"
+                 [(ngModel)]="nuevaOpcion"
+                 name="nuevaOpcion"
+                 placeholder="Ej: Excelente"
+                 (keyup.enter)="agregarOpcion()">
+
+          <button type="button"
+                  class="secondary-button"
+                  (click)="agregarOpcion()">
+
+            ＋ Agregar opción
+
+          </button>
+
+        </div>
+
+      </div>
+
+
+      <!-- EMPLEADOS -->
+
+      <div class="empleados-config"
+           *ngIf="tipoPregunta === 'EMPLEADO'">
+
+        <div class="empleados-header">
+
+          <div>
+
+            <label>
+              Empleados disponibles
+            </label>
+
+            <p>
+              Estos empleados podrán ser seleccionados por el cliente.
+            </p>
+
+          </div>
+
+          <button type="button"
+                  class="secondary-button"
+                  (click)="agregarEmpleado()">
+
+            ＋ Agregar empleado
+
+          </button>
+
+        </div>
+
+
+        <!-- FORMULARIO AGREGAR EMPLEADO -->
+
+        <div class="empleado-form"
+             *ngIf="mostrarFormularioEmpleado">
+
+          <h4>
+            Agregar empleado
+          </h4>
+
+          <div class="error-message"
+               *ngIf="errorEmpleado">
+
+            {{ errorEmpleado }}
+
+          </div>
+
+          <div class="form-row">
+
+            <div class="form-group">
+
+              <label>
+                Nombre
+              </label>
+
+              <input type="text"
+                     [(ngModel)]="nombreEmpleado"
+                     name="nombreEmpleado"
+                     placeholder="Ej: Juan">
+
+            </div>
+
+            <div class="form-group">
+
+              <label>
+                Apellido
+              </label>
+
+              <input type="text"
+                     [(ngModel)]="apellidoEmpleado"
+                     name="apellidoEmpleado"
+                     placeholder="Ej: Pérez">
+
+            </div>
+
+          </div>
+
+          <div class="form-actions">
+
+            <button type="button"
+                    class="secondary-button"
+                    (click)="cancelarEmpleado()">
+
+              Cancelar
+
+            </button>
+
+            <button type="button"
+                    class="primary-button"
+                    [disabled]="guardandoEmpleado"
+                    (click)="guardarEmpleado()">
+
+              {{
+                guardandoEmpleado
+                  ? 'Guardando...'
+                  : 'Guardar empleado'
+              }}
+
+            </button>
+
+          </div>
+
+        </div>
+
+
+        <!-- CARGANDO -->
+
+        <div class="empleados-loading"
+             *ngIf="cargandoEmpleados">
+
+          Cargando empleados...
+
+        </div>
+
+
+        <!-- SIN EMPLEADOS -->
+
+        <div class="empleados-empty"
+             *ngIf="
+               !cargandoEmpleados &&
+               empleados.length === 0 &&
+               !mostrarFormularioEmpleado
+             ">
+
+          <p>
+            Todavía no hay empleados cargados para este local.
+          </p>
+
+          <button type="button"
+                  class="secondary-button"
+                  (click)="agregarEmpleado()">
+
+            ＋ Agregar primer empleado
+
+          </button>
+
+        </div>
+
+
+        <!-- TABLA DE EMPLEADOS -->
+
+        <div class="empleados-table-container"
+             *ngIf="
+             !cargandoEmpleados &&
+             empleados.length>
+          0
+          ">
+
+          <table class="empleados-table">
+
+            <thead>
+
+              <tr>
+
+                <th>
+                  Orden
+                </th>
+
+                <th>
+                  Empleado
+                </th>
+
+                <th>
+                  Estado
+                </th>
+
+              </tr>
+
+            </thead>
+
+            <tbody>
+
+              <tr *ngFor="
+                    let empleado of empleados;
+                    let i = index
+                  ">
+
+                <td>
+                  {{ i + 1 }}
+                </td>
+
+                <td>
+
+                  <label class="empleado-check">
+
+                    <input type="checkbox"
+                           [checked]="empleadoSeleccionado(empleado)"
+                           (change)="cambiarEmpleadoSeleccionado(empleado)">
+
+                    <strong>
+                      {{ empleado.nombre }}
+                      {{ empleado.apellido }}
+                    </strong>
+
+                  </label>
+
+                </td>
+
+                <td>
+
+                  <span class="empleado-activo">
+                    Activo
+                  </span>
+
+                </td>
+
+              </tr>
+
+            </tbody>
+
+          </table>
+
+        </div>
+
+      </div>
+
+
+      <!-- ORDEN Y ESTADO -->
+
+      <div class="form-row">
+
+        <div class="form-group">
+
+          <label>
+            Orden
+          </label>
+
+          <input type="number"
+                 [(ngModel)]="ordenPregunta"
+                 name="ordenPregunta"
+                 min="1">
+
+        </div>
+
+
+        <div class="form-group">
+
+          <label>
+            Estado
+          </label>
+
+          <select [(ngModel)]="activa"
+                  name="activa">
+
+            <option [ngValue]="true">
+              Activa
+            </option>
+
+            <option [ngValue]="false">
+              Inactiva
+            </option>
+
+          </select>
+
+        </div>
+
+      </div>
+
+
+      <!-- OBLIGATORIA -->
+
+      <div class="checkbox-option">
+
+        <label>
+
+          <input type="checkbox"
+                 [(ngModel)]="obligatoria"
+                 name="obligatoria">
+
+          <span>
+            Esta pregunta es obligatoria
+          </span>
+
+        </label>
+
+      </div>
+
+
+      <!-- BOTONES -->
+
+      <div class="form-actions">
+
+        <button type="button"
+                class="secondary-button"
+                (click)="cancelarPregunta()">
+
+          Cancelar
+
+        </button>
+
+
+        <button type="button"
+                class="primary-button"
+                [disabled]="guardandoPregunta"
+                (click)="guardarPregunta()">
+
+          {{
+            guardandoPregunta
+              ? 'Guardando...'
+              : (modoEdicion
+                  ? 'Guardar cambios'
+                  : 'Guardar pregunta')
+          }}
+
+        </button>
+
+      </div>
+
+    </form>
+
+  </div>
+
+
+  <!-- CARGANDO -->
+
+  <div class="loading"
+       *ngIf="cargando">
+
+    Cargando preguntas...
+
+  </div>
+
+
+  <!-- SIN PREGUNTAS -->
+
+  <div class="empty-state"
+       *ngIf="
+         !cargando &&
+         preguntas.length === 0 &&
+         !mostrarFormulario
+       ">
+
+    <div class="empty-icon">
+      📋
+    </div>
+
+    <h2>
+      Todavía no hay preguntas
+    </h2>
+
+    <p>
+      Comenzá agregando la primera pregunta de esta encuesta.
+    </p>
+
+    <button type="button"
+            class="primary-button"
+            (click)="agregarPregunta()">
+
+      ＋ Agregar primera pregunta
+
+    </button>
+
+  </div>
+
+
+  <!-- LISTA DE PREGUNTAS -->
+
+  <div class="preguntas-list"
+       *ngIf="
+       !cargando &&
+       preguntas.length>
+    0
+    ">
+
+    <div class="pregunta-card"
+         *ngFor="
+           let pregunta of preguntas;
+           let i = index
+         ">
+
+      <!-- NUMERO -->
+
+      <div class="pregunta-number">
+
+        {{ i + 1 }}
+
+      </div>
+
+
+      <!-- CONTENIDO -->
+
+      <div class="pregunta-content">
+
+        <div class="pregunta-top">
+
+          <div>
+
+            <span class="pregunta-type">
+
+              {{ pregunta.tipo }}
+
+            </span>
+
+            <h3>
+
+              {{ pregunta.texto }}
+
+            </h3>
+
+          </div>
+
+
+          <span class="pregunta-status"
+                [class.inactive]="!pregunta.activa">
+
+            {{
+              pregunta.activa
+                ? 'Activa'
+                : 'Inactiva'
+            }}
+
+          </span>
+
+        </div>
+
+
+        <div class="pregunta-info">
+
+          <span>
+
+            {{
+              pregunta.obligatoria
+                ? '✓ Obligatoria'
+                : 'Opcional'
+            }}
+
+          </span>
+
+        </div>
+
+      </div>
+
+
+      <!-- ACCIONES -->
+
+      <div class="pregunta-actions">
+
+        <button type="button"
+                class="action-button"
+                (click)="editarPregunta(pregunta)">
+
+          Editar
+
+        </button>
+
+        <button type="button"
+                class="action-button delete"
+                (click)="eliminarPregunta(pregunta)">
+
+          Eliminar
+
+        </button>
+
+      </div>
+
+    </div>
+
+  </div>
+
+</div>
+

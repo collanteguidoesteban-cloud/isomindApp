@@ -1,0 +1,255 @@
+.crear-encuesta-page {
+  min-height: 100vh;
+  background: #f5f7fb;
+  padding: 40px 24px;
+}
+
+.crear-encuesta-header {
+  max-width: 900px;
+  margin: 0 auto 25px;
+}
+
+.back-button {
+  border: none;
+  background: transparent;
+  padding: 0;
+  margin-bottom: 25px;
+  color: #555;
+  font-size: 14px;
+  cursor: pointer;
+}
+
+  .back-button:hover {
+    color: #111;
+  }
+
+.crear-encuesta-header h1 {
+  margin: 0 0 8px;
+  font-size: 32px;
+  color: #1f2937;
+}
+
+.crear-encuesta-header p {
+  margin: 0;
+  color: #6b7280;
+  font-size: 15px;
+}
+
+.crear-encuesta-card {
+  max-width: 900px;
+  margin: 0 auto;
+  background: #ffffff;
+  border-radius: 16px;
+  padding: 32px;
+  box-shadow: 0 8px 30px rgba(0, 0, 0, 0.06);
+}
+
+.card-title {
+  display: flex;
+  align-items: center;
+  gap: 16px;
+  margin-bottom: 30px;
+  padding-bottom: 25px;
+  border-bottom: 1px solid #eeeeee;
+}
+
+.title-icon {
+  width: 52px;
+  height: 52px;
+  border-radius: 12px;
+  background: #f0f4ff;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 25px;
+}
+
+.card-title h2 {
+  margin: 0 0 5px;
+  color: #1f2937;
+  font-size: 21px;
+}
+
+.card-title p {
+  margin: 0;
+  color: #777;
+  font-size: 14px;
+}
+
+.form-group {
+  margin-bottom: 22px;
+}
+
+  .form-group label {
+    display: block;
+    margin-bottom: 8px;
+    color: #374151;
+    font-size: 14px;
+    font-weight: 600;
+  }
+
+    .form-group label span {
+      color: #dc2626;
+    }
+
+  .form-group input,
+  .form-group textarea {
+    width: 100%;
+    box-sizing: border-box;
+    border: 1px solid #d9dde5;
+    border-radius: 9px;
+    padding: 12px 14px;
+    font-family: inherit;
+    font-size: 14px;
+    outline: none;
+    transition: border-color 0.2s;
+  }
+
+    .form-group input:focus,
+    .form-group textarea:focus {
+      border-color: #6c63ff;
+    }
+
+  .form-group textarea {
+    resize: vertical;
+    min-height: 120px;
+  }
+
+.active-option {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 18px;
+  margin-top: 10px;
+  margin-bottom: 30px;
+  border: 1px solid #e5e7eb;
+  border-radius: 10px;
+  background: #fafafa;
+}
+
+  .active-option strong {
+    display: block;
+    margin-bottom: 5px;
+    color: #374151;
+    font-size: 14px;
+  }
+
+  .active-option small {
+    color: #777;
+    font-size: 13px;
+  }
+
+.switch {
+  position: relative;
+  display: inline-block;
+  width: 48px;
+  height: 26px;
+}
+
+  .switch input {
+    opacity: 0;
+    width: 0;
+    height: 0;
+  }
+
+.slider {
+  position: absolute;
+  cursor: pointer;
+  inset: 0;
+  background: #ccc;
+  border-radius: 30px;
+  transition: 0.2s;
+}
+
+  .slider:before {
+    content: "";
+    position: absolute;
+    width: 20px;
+    height: 20px;
+    left: 3px;
+    top: 3px;
+    background: white;
+    border-radius: 50%;
+    transition: 0.2s;
+  }
+
+.switch input:checked + .slider {
+  background: #6c63ff;
+}
+
+  .switch input:checked + .slider:before {
+    transform: translateX(22px);
+  }
+
+.form-actions {
+  display: flex;
+  justify-content: flex-end;
+  gap: 12px;
+  padding-top: 10px;
+}
+
+.primary-button,
+.secondary-button {
+  border: none;
+  border-radius: 9px;
+  padding: 12px 22px;
+  font-size: 14px;
+  font-weight: 600;
+  cursor: pointer;
+}
+
+.primary-button {
+  background: #6c63ff;
+  color: white;
+}
+
+  .primary-button:hover {
+    background: #574fe0;
+  }
+
+  .primary-button:disabled {
+    opacity: 0.6;
+    cursor: not-allowed;
+  }
+
+.secondary-button {
+  background: #eeeeee;
+  color: #444;
+}
+
+  .secondary-button:hover {
+    background: #e1e1e1;
+  }
+
+.error-message {
+  margin-bottom: 20px;
+  padding: 12px 15px;
+  border-radius: 8px;
+  background: #fee2e2;
+  color: #b91c1c;
+  font-size: 14px;
+}
+
+@media (max-width: 600px) {
+
+  .crear-encuesta-page {
+    padding: 25px 15px;
+  }
+
+  .crear-encuesta-card {
+    padding: 22px;
+  }
+
+  .crear-encuesta-header h1 {
+    font-size: 25px;
+  }
+
+  .form-actions {
+    flex-direction: column-reverse;
+  }
+
+  .primary-button,
+  .secondary-button {
+    width: 100%;
+  }
+}

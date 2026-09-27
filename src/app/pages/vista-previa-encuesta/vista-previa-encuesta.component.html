@@ -1,0 +1,163 @@
+<div class="vista-previa-page">
+
+  <div class="vista-previa-header">
+
+    <button type="button"
+            class="back-button"
+            (click)="volverEditar()">
+      ← Volver a editar
+    </button>
+
+    <div>
+      <span class="section-label">
+        VISTA PREVIA
+      </span>
+
+      <h1>Así verá la encuesta tu cliente</h1>
+
+      <p>
+        Esta es una simulación de cómo se mostrará la encuesta.
+      </p>
+    </div>
+
+  </div>
+
+  <div class="error-message"
+       *ngIf="error">
+    {{ error }}
+  </div>
+
+  <div class="loading"
+       *ngIf="cargando">
+    Cargando encuesta...
+  </div>
+
+  <div class="encuesta-preview"
+       *ngIf="!cargando && !error">
+
+    <div class="encuesta-header">
+
+      <div class="logo-placeholder">
+        Logo
+      </div>
+
+      <h2>
+        Encuesta de satisfacción
+      </h2>
+
+      <p>
+        Queremos conocer tu opinión.
+      </p>
+
+    </div>
+
+    <div class="preguntas-preview">
+
+      <div class="pregunta-preview"
+           *ngFor="let pregunta of preguntas">
+
+        <div class="pregunta-preview-header">
+
+          <span class="pregunta-number">
+            {{ pregunta.orden }}
+          </span>
+
+          <div>
+
+            <span class="pregunta-type">
+              {{ pregunta.tipo }}
+            </span>
+
+            <h3>
+              {{ pregunta.texto }}
+            </h3>
+
+          </div>
+
+        </div>
+
+        <!-- CALIFICACION -->
+
+        <div class="respuesta-calificacion"
+             *ngIf="pregunta.tipo === 'CALIFICACION'">
+
+          <button type="button">★</button>
+          <button type="button">★</button>
+          <button type="button">★</button>
+          <button type="button">★</button>
+          <button type="button">★</button>
+
+        </div>
+
+        <!-- EMPLEADO -->
+
+        <div class="respuesta-empleado"
+             *ngIf="pregunta.tipo === 'EMPLEADO'">
+
+          <select>
+
+            <option value="">
+              Seleccioná un empleado
+            </option>
+
+            <!--
+            Más adelante acá
+            vamos a mostrar solamente
+            los empleados seleccionados
+            para esta pregunta.
+            -->
+
+          </select>
+
+        </div>
+
+        <!-- OPCION -->
+
+        <div class="respuesta-opcion"
+             *ngIf="pregunta.tipo === 'OPCION'">
+
+          <label>
+            <input type="radio"
+                   name="opcion-{{ pregunta.id }}">
+            Opción 1
+          </label>
+
+          <label>
+            <input type="radio"
+                   name="opcion-{{ pregunta.id }}">
+            Opción 2
+          </label>
+
+        </div>
+
+        <!-- TEXTO -->
+
+        <div class="respuesta-texto"
+             *ngIf="pregunta.tipo === 'TEXTO'">
+
+          <textarea placeholder="Escribí tu respuesta...">
+          </textarea>
+
+        </div>
+
+        <span class="obligatoria"
+              *ngIf="pregunta.obligatoria">
+          * Esta pregunta es obligatoria
+        </span>
+
+      </div>
+
+    </div>
+
+    <div class="encuesta-footer">
+
+      <button type="button"
+              class="enviar-button">
+        Enviar respuesta
+      </button>
+
+    </div>
+
+  </div>
+
+</div>

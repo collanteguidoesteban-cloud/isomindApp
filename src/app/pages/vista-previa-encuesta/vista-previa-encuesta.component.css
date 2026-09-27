@@ -1,0 +1,171 @@
+.vista-previa-page {
+  min-height: 100vh;
+  background: #f6f7fb;
+  padding: 30px;
+}
+
+.vista-previa-header {
+  max-width: 1000px;
+  margin: 0 auto 30px auto;
+}
+
+.back-button {
+  border: none;
+  background: transparent;
+  cursor: pointer;
+  padding: 0;
+  margin-bottom: 25px;
+  font-size: 14px;
+}
+
+.section-label {
+  font-size: 12px;
+  font-weight: 700;
+  letter-spacing: 1px;
+}
+
+.vista-previa-header h1 {
+  margin: 8px 0;
+  font-size: 32px;
+}
+
+.vista-previa-header p {
+  color: #666;
+}
+
+.encuesta-preview {
+  max-width: 700px;
+  margin: 0 auto;
+  background: white;
+  border-radius: 18px;
+  padding: 35px;
+  box-shadow: 0 10px 35px rgba(0, 0, 0, 0.08);
+}
+
+.encuesta-header {
+  text-align: center;
+  margin-bottom: 35px;
+}
+
+.logo-placeholder {
+  width: 70px;
+  height: 70px;
+  border-radius: 50%;
+  background: #eee;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin: 0 auto 20px auto;
+  color: #777;
+}
+
+.encuesta-header h2 {
+  margin-bottom: 8px;
+}
+
+.encuesta-header p {
+  color: #777;
+}
+
+.pregunta-preview {
+  padding: 25px 0;
+  border-bottom: 1px solid #eee;
+}
+
+.pregunta-preview-header {
+  display: flex;
+  gap: 15px;
+  align-items: flex-start;
+}
+
+.pregunta-number {
+  width: 32px;
+  height: 32px;
+  border-radius: 50%;
+  background: #eee;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-weight: bold;
+  flex-shrink: 0;
+}
+
+.pregunta-type {
+  font-size: 11px;
+  font-weight: bold;
+  color: #777;
+}
+
+.pregunta-preview h3 {
+  margin: 5px 0 15px 0;
+}
+
+.respuesta-calificacion {
+  display: flex;
+  gap: 8px;
+}
+
+  .respuesta-calificacion button {
+    border: none;
+    background: transparent;
+    font-size: 32px;
+    color: #ccc;
+    cursor: pointer;
+  }
+
+.respuesta-empleado select,
+.respuesta-texto textarea {
+  width: 100%;
+  padding: 12px;
+  border: 1px solid #ddd;
+  border-radius: 8px;
+  box-sizing: border-box;
+}
+
+.respuesta-texto textarea {
+  min-height: 100px;
+  resize: vertical;
+}
+
+.respuesta-opcion {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+}
+
+  .respuesta-opcion label {
+    cursor: pointer;
+  }
+
+.obligatoria {
+  display: block;
+  margin-top: 10px;
+  font-size: 12px;
+  color: #888;
+}
+
+.encuesta-footer {
+  text-align: center;
+  padding-top: 30px;
+}
+
+.enviar-button {
+  border: none;
+  padding: 13px 30px;
+  border-radius: 8px;
+  cursor: pointer;
+  font-weight: bold;
+}
+
+.error-message {
+  max-width: 700px;
+  margin: 20px auto;
+  padding: 15px;
+  background: #ffe5e5;
+  border-radius: 8px;
+}
+
+.loading {
+  text-align: center;
+  padding: 50px;
+}

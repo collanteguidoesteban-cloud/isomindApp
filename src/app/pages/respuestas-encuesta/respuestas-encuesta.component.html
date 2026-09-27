@@ -1,0 +1,994 @@
+<div class="respuestas-page">
+
+    <!-- ========================================= -->
+    <!-- HEADER -->
+    <!-- ========================================= -->
+    <!--<div class="preguntas-header">
+
+      <button type="button"
+              class="back-button"
+              (click)="volverDashboard()">
+
+        ← Volver al dashboard
+
+      </button>
+
+      <div class="header-content">-->
+    <!-- INFORMACIÓN -->
+    <!--<div class="header-info">
+
+    </div>-->
+    <!-- BOTONES -->
+    <!--<div class="header-buttons">
+
+        </div>
+
+      </div>
+
+    </div>-->
+
+
+
+    <div class="estadisticas-container"
+         *ngIf="estadisticas && !cargando">
+
+
+        <!-- ========================================= -->
+        <!-- HEADER ESTADÍSTICAS -->
+        <!-- ========================================= -->
+
+        <div class="estadisticas-header">
+
+            <div>
+
+                <span class="section-label">
+                    ESTADÍSTICAS
+                </span>
+
+                <h2>
+                    Resumen de respuestas
+                </h2>
+
+                <p>
+                    Estadísticas correspondientes a los filtros seleccionados.
+                </p>
+
+            </div>
+
+        </div>
+
+
+        <!-- ========================================= -->
+        <!-- RESUMEN -->
+        <!-- ========================================= -->
+
+        <div class="estadisticas-resumen">
+
+
+            <!-- TOTAL -->
+
+            <div class="estadistica-card">
+
+                <div class="estadistica-icon">
+                    👥
+                </div>
+
+                <div>
+
+                    <span class="estadistica-label">
+                        RESPUESTAS
+                    </span>
+
+                    <strong>
+                        {{ estadisticas.totalRespuestas }}
+                    </strong>
+
+                </div>
+
+            </div>
+
+
+            <!-- PROMEDIO -->
+
+            <div class="estadistica-card">
+
+                <div class="estadistica-icon">
+                    ⭐
+                </div>
+
+                <div>
+
+                    <span class="estadistica-label">
+                        PROMEDIO
+                    </span>
+
+                    <strong>
+                        {{
+              estadisticas.promedioCalificacion
+              | number:'1.2-2'
+                        }}
+                    </strong>
+
+                    <small>
+                        / 5
+                    </small>
+
+                </div>
+
+            </div>
+
+
+            <!-- CINCO ESTRELLAS -->
+
+            <div class="estadistica-card">
+
+                <div class="estadistica-icon">
+                    🌟
+                </div>
+
+                <div>
+
+                    <span class="estadistica-label">
+                        5 ESTRELLAS
+                    </span>
+
+                    <strong>
+                        {{ estadisticas.cincoEstrellas }}
+                    </strong>
+
+                </div>
+
+            </div>
+
+
+        </div>
+    </div>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+        <!-- ========================================= -->
+        <!-- FILTROS -->
+        <!-- ========================================= -->
+
+        <div class="filtros-card">
+
+            <div class="filtros-header">
+
+                <div>
+
+                    <span class="section-label">
+                        FILTROS
+                    </span>
+
+                    <h2>
+                        Buscar respuestas
+                    </h2>
+
+                </div>
+
+            </div>
+
+
+            <div class="filtros-grid">
+
+                <!-- FECHA DESDE -->
+
+                <div class="filtro-item">
+
+                    <label>
+                        Fecha desde
+                    </label>
+
+                    <input type="date"
+                           [(ngModel)]="fechaDesde">
+
+                </div>
+
+
+                <!-- FECHA HASTA -->
+
+                <div class="filtro-item">
+
+                    <label>
+                        Fecha hasta
+                    </label>
+
+                    <input type="date"
+                           [(ngModel)]="fechaHasta">
+
+                </div>
+
+
+                <!-- EMPLEADO -->
+
+                <div class="filtro-item">
+
+                    <label>
+                        Empleado
+                    </label>
+
+                    <select [(ngModel)]="idEmpleadoFiltro">
+
+                        <option [ngValue]="0">
+                            Todos
+                        </option>
+
+                        <option *ngFor="let empleado of empleados"
+                                [ngValue]="empleado.id">
+
+                            {{ empleado.nombre }}
+                            {{ empleado.apellido }}
+
+                        </option>
+
+                    </select>
+
+                </div>
+
+
+                <!-- CALIFICACIÓN -->
+
+                <div class="filtro-item">
+
+                    <label>
+                        Calificación
+                    </label>
+
+                    <select [(ngModel)]="calificacionFiltro">
+
+                        <option [ngValue]="0">
+                            Todas
+                        </option>
+
+                        <option [ngValue]="1">
+                            ★ 1
+                        </option>
+
+                        <option [ngValue]="2">
+                            ★ 2
+                        </option>
+
+                        <option [ngValue]="3">
+                            ★ 3
+                        </option>
+
+                        <option [ngValue]="4">
+                            ★ 4
+                        </option>
+
+                        <option [ngValue]="5">
+                            ★ 5
+                        </option>
+
+                    </select>
+
+                </div>
+
+
+                <!-- ===================================== -->
+                <!-- PREGUNTAS OPCION DINÁMICAS -->
+                <!-- ===================================== -->
+
+                <div class="filtro-item"
+                     *ngFor="let pregunta of opcionesPorPregunta">
+
+                    <label>
+                        {{ pregunta.textoPregunta }}
+                    </label>
+
+                    <select [(ngModel)]="filtrosOpciones[pregunta.idPregunta]">
+
+                        <option [ngValue]="0">
+                            Todas
+                        </option>
+
+                        <option *ngFor="let opcion of pregunta.opciones"
+                                [ngValue]="opcion.id">
+
+                            {{ opcion.texto }}
+
+                        </option>
+
+                    </select>
+
+                </div>
+
+            </div>
+
+
+            <!-- ========================================= -->
+            <!-- BOTONES -->
+            <!-- ========================================= -->
+
+            <div class="filtros-actions">
+
+                <button type="button"
+                        class="btn-filtrar"
+                        (click)="aplicarFiltros()">
+
+                    🔎 Buscar
+
+                </button>
+
+                <button type="button"
+                        class="btn-limpiar"
+                        (click)="limpiarFiltros()">
+
+                    ↺ Limpiar
+
+                </button>
+
+            </div>
+
+        </div>
+
+
+        <!-- ========================================= -->
+        <!-- CARGANDO -->
+        <!-- ========================================= -->
+
+        <div class="loading-container"
+             *ngIf="cargando">
+
+            <div class="loading-icon">
+                ⏳
+            </div>
+
+            <p>
+                Cargando respuestas...
+            </p>
+
+        </div>
+
+
+        <!-- ========================================= -->
+        <!-- TABLA -->
+        <!-- ========================================= -->
+
+        <div class="tabla-card"
+             *ngIf="!cargando">
+
+            <div class="tabla-header">
+
+                <div>
+
+                    <span class="section-label">
+                        RESPUESTAS
+                    </span>
+
+                    <h2>
+                        Resultados encontrados
+                    </h2>
+
+                </div>
+
+                <div class="total-respuestas">
+
+                    {{ totalRespuestas }}
+                    respuestas
+
+                </div>
+
+            </div>
+
+
+            <div class="tabla-responsive"
+                 *ngIf="respuestas.length > 0">
+
+                <table>
+
+                    <thead>
+
+                        <tr>
+
+                            <th>
+                                #
+                            </th>
+
+                            <th>
+                                Fecha
+                            </th>
+
+                            <th>
+                                Empleado
+                            </th>
+
+                            <th>
+                                Calificación
+                            </th>
+
+                            <th>
+                                Comentario
+                            </th>
+
+                        </tr>
+
+                    </thead>
+
+
+                    <tbody>
+
+                        <tr *ngFor="let respuesta of respuestas"
+                            (click)="abrirDetalle(respuesta)"
+                            class="fila-respuesta">
+
+
+                            <!-- NÚMERO -->
+
+                            <td>
+
+                                {{ respuesta.id }}
+
+                            </td>
+
+
+                            <!-- FECHA -->
+
+                            <td>
+
+                                {{
+                respuesta.fechaCreacion
+                | date:'dd/MM/yyyy HH:mm'
+                                }}
+
+                            </td>
+
+
+                            <!-- EMPLEADO -->
+
+                            <td>
+
+                                <ng-container *ngFor="let detalle of respuesta.detalles">
+
+                                    <span *ngIf="
+                    obtenerPregunta(detalle.idPregunta)?.tipo
+                    === 'EMPLEADO'
+                  ">
+
+                                        {{
+                    obtenerNombreEmpleado(
+                      detalle.valor
+                    )
+                                        }}
+
+                                    </span>
+
+                                </ng-container>
+
+                            </td>
+
+
+                            <!-- CALIFICACIÓN -->
+
+                            <td>
+
+                                <ng-container *ngFor="let detalle of respuesta.detalles">
+
+                                    <ng-container *ngIf="
+                    obtenerPregunta(detalle.idPregunta)?.tipo
+                    === 'CALIFICACION'
+                  ">
+
+                                        <span class="stars">
+
+                                            <span *ngFor="let estrella of [1,2,3,4,5]"
+                                                  [class.selected]="
+                        esEstrellaSeleccionada(
+                          detalle.valor,
+                          estrella
+                        )
+                      ">
+
+                                                ★
+
+                                            </span>
+
+                                        </span>
+
+                                        <small>
+
+                                            {{ detalle.valor }}/5
+
+                                        </small>
+
+                                    </ng-container>
+
+                                </ng-container>
+
+                            </td>
+
+
+                            <!-- COMENTARIO -->
+
+                            <td>
+
+                                <ng-container *ngFor="let detalle of respuesta.detalles">
+
+                                    <span *ngIf="
+                    obtenerPregunta(detalle.idPregunta)?.tipo
+                    === 'TEXTO'
+                  ">
+
+                                        {{ detalle.valor }}
+
+                                    </span>
+
+                                </ng-container>
+
+                            </td>
+
+                        </tr>
+
+                    </tbody>
+
+                </table>
+
+            </div>
+
+
+            <!-- SIN RESULTADOS -->
+
+            <div class="sin-resultados"
+                 *ngIf="respuestas.length === 0">
+
+                <div class="sin-resultados-icon">
+                    📭
+                </div>
+
+                <h3>
+                    No se encontraron respuestas
+                </h3>
+
+                <p>
+                    Probá modificar los filtros de búsqueda.
+                </p>
+
+            </div>
+
+
+            <!-- ========================================= -->
+            <!-- PAGINACIÓN -->
+            <!-- ========================================= -->
+
+            <div class="paginacion"
+                 *ngIf="totalPaginas > 1">
+
+                <button type="button"
+                        (click)="paginaAnterior()"
+                        [disabled]="paginaActual === 1">
+
+                    ←
+
+                </button>
+
+
+                <button type="button"
+                        *ngFor="let pagina of obtenerPaginas()"
+                        [class.activa]="pagina === paginaActual"
+                        (click)="irPagina(pagina)">
+
+                    {{ pagina }}
+
+                </button>
+
+
+                <button type="button"
+                        (click)="paginaSiguiente()"
+                        [disabled]="paginaActual === totalPaginas">
+
+                    →
+
+                </button>
+
+            </div>
+
+        </div>
+
+
+        <!-- ===================================================== -->
+        <!-- ESTADÍSTICAS -->
+        <!-- ===================================================== -->
+
+        <div class="estadisticas-container"
+             *ngIf="estadisticas && !cargando">
+
+
+            <!-- ========================================= -->
+            <!-- HEADER ESTADÍSTICAS -->
+            <!-- ========================================= -->
+
+            <div class="estadisticas-header">
+
+                <div>
+
+                    <span class="section-label">
+                        ESTADÍSTICAS
+                    </span>
+
+                    <h2>
+                        Resumen de respuestas
+                    </h2>
+
+                    <p>
+                        Estadísticas correspondientes a los filtros seleccionados.
+                    </p>
+
+                </div>
+
+            </div>
+
+
+            <!-- ========================================= -->
+            <!-- RESUMEN -->
+            <!-- ========================================= -->
+
+            <div class="estadisticas-resumen">
+
+
+                <!-- TOTAL -->
+
+                <div class="estadistica-card">
+
+                    <div class="estadistica-icon">
+                        👥
+                    </div>
+
+                    <div>
+
+                        <span class="estadistica-label">
+                            RESPUESTAS
+                        </span>
+
+                        <strong>
+                            {{ estadisticas.totalRespuestas }}
+                        </strong>
+
+                    </div>
+
+                </div>
+
+
+                <!-- PROMEDIO -->
+
+                <div class="estadistica-card">
+
+                    <div class="estadistica-icon">
+                        ⭐
+                    </div>
+
+                    <div>
+
+                        <span class="estadistica-label">
+                            PROMEDIO
+                        </span>
+
+                        <strong>
+                            {{
+              estadisticas.promedioCalificacion
+              | number:'1.2-2'
+                            }}
+                        </strong>
+
+                        <small>
+                            / 5
+                        </small>
+
+                    </div>
+
+                </div>
+
+
+                <!-- CINCO ESTRELLAS -->
+
+                <div class="estadistica-card">
+
+                    <div class="estadistica-icon">
+                        🌟
+                    </div>
+
+                    <div>
+
+                        <span class="estadistica-label">
+                            5 ESTRELLAS
+                        </span>
+
+                        <strong>
+                            {{ estadisticas.cincoEstrellas }}
+                        </strong>
+
+                    </div>
+
+                </div>
+
+
+            </div>
+
+
+            <!-- ========================================= -->
+            <!-- GRÁFICOS PRINCIPALES -->
+            <!-- ========================================= -->
+
+            <div class="graficos-grid">
+
+
+                <!-- CALIFICACIONES -->
+
+                <div class="grafico-card">
+
+                    <div class="grafico-header">
+
+                        <span class="section-label">
+                            CALIFICACIONES
+                        </span>
+
+                        <h3>
+                            Distribución de calificaciones
+                        </h3>
+
+                    </div>
+
+                    <div class="grafico">
+
+                        <canvas id="chartCalificaciones">
+                        </canvas>
+
+                    </div>
+
+                </div>
+
+
+                <!-- EMPLEADOS -->
+
+                <div class="grafico-card">
+
+                    <div class="grafico-header">
+
+                        <span class="section-label">
+                            EMPLEADOS
+                        </span>
+
+                        <h3>
+                            Respuestas por empleado
+                        </h3>
+
+                    </div>
+
+                    <div class="grafico">
+
+                        <canvas id="chartEmpleados">
+                        </canvas>
+
+                    </div>
+
+                </div>
+
+
+            </div>
+
+
+            <!-- ========================================= -->
+            <!-- GRÁFICOS DE PREGUNTAS OPCIÓN -->
+            <!-- ========================================= -->
+
+            <div class="graficos-opciones"
+                 *ngIf="
+                 estadisticas.opciones &&
+                 estadisticas.opciones.length>
+                0
+                ">
+
+
+                <div class="grafico-card"
+                     *ngFor="
+          let pregunta of estadisticas.opciones
+        ">
+
+
+                    <div class="grafico-header">
+
+                        <span class="section-label">
+                            PREGUNTA
+                        </span>
+
+                        <h3>
+                            {{ pregunta.pregunta }}
+                        </h3>
+
+                    </div>
+
+
+                    <div class="grafico">
+
+                        <canvas [id]="
+              'chartOpcion' +
+              pregunta.idPregunta
+            ">
+                        </canvas>
+
+                    </div>
+
+
+                </div>
+
+
+            </div>
+
+
+        </div>
+
+
+        <!-- ========================================= -->
+        <!-- MODAL DETALLE -->
+        <!-- ========================================= -->
+
+        <div class="modal-overlay"
+             *ngIf="respuestaSeleccionada"
+             (click)="cerrarDetalle()">
+
+
+            <div class="modal-detalle"
+                 (click)="$event.stopPropagation()">
+
+
+                <div class="modal-header">
+
+                    <div>
+
+                        <span class="section-label">
+                            DETALLE
+                        </span>
+
+                        <h2>
+                            Respuesta #{{ respuestaSeleccionada.id }}
+                        </h2>
+
+                    </div>
+
+
+                    <button type="button"
+                            class="modal-close"
+                            (click)="cerrarDetalle()">
+
+                        ×
+
+                    </button>
+
+                </div>
+
+
+                <div class="modal-fecha">
+
+                    {{
+          respuestaSeleccionada.fechaCreacion
+          | date:'dd/MM/yyyy HH:mm:ss'
+                    }}
+
+                </div>
+
+
+                <div class="detalle-preguntas">
+
+                    <div class="detalle-item"
+                         *ngFor="
+            let detalle of respuestaSeleccionada.detalles
+          ">
+
+
+                        <div class="detalle-pregunta">
+
+                            {{
+              obtenerTextoPregunta(
+                detalle.idPregunta
+              )
+                            }}
+
+                        </div>
+
+
+                        <!-- CALIFICACIÓN -->
+
+                        <ng-container *ngIf="
+              obtenerPregunta(detalle.idPregunta)?.tipo
+              === 'CALIFICACION'
+            ">
+
+                            <div class="detalle-rating">
+
+                                <span *ngFor="let estrella of [1,2,3,4,5]"
+                                      [class.selected]="
+                  esEstrellaSeleccionada(
+                    detalle.valor,
+                    estrella
+                  )
+                ">
+
+                                    ★
+
+                                </span>
+
+                                <span class="rating-numero">
+
+                                    {{ detalle.valor }}/5
+
+                                </span>
+
+                            </div>
+
+                        </ng-container>
+
+
+                        <!-- EMPLEADO -->
+
+                        <ng-container *ngIf="
+              obtenerPregunta(detalle.idPregunta)?.tipo
+              === 'EMPLEADO'
+            ">
+
+                            <div class="detalle-respuesta">
+
+                                👤
+                                {{ obtenerNombreEmpleado(detalle.valor) }}
+
+                            </div>
+
+                        </ng-container>
+
+
+                        <!-- OPCIÓN -->
+
+                        <ng-container *ngIf="
+              obtenerPregunta(detalle.idPregunta)?.tipo
+              === 'OPCION'
+            ">
+
+                            <div class="detalle-respuesta">
+
+                                {{
+                obtenerTextoOpcion(
+                  detalle.idPregunta,
+                  detalle.valor
+                )
+                                }}
+
+                            </div>
+
+                        </ng-container>
+
+
+                        <!-- TEXTO -->
+
+                        <ng-container *ngIf="
+              obtenerPregunta(detalle.idPregunta)?.tipo
+              === 'TEXTO'
+            ">
+
+                            <div class="detalle-respuesta">
+
+                                {{ detalle.valor }}
+
+                            </div>
+
+                        </ng-container>
+
+
+                    </div>
+
+                </div>
+
+            </div>
+
+        </div>
+
+    </div>

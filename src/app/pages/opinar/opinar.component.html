@@ -1,0 +1,286 @@
+
+<div class="opinar-page">
+
+  <div class="cargando" *ngIf="cargando">
+    <div class="loading-icon">
+      ⏳
+    </div>
+
+    <p>
+      Cargando encuesta...
+    </p>
+  </div>
+
+
+  <div class="error" *ngIf="error && !cargando">
+
+    <div class="error-icon">
+      ⚠
+    </div>
+
+    <h2>
+      Encuesta no disponible
+    </h2>
+
+    <p>
+      {{ error }}
+    </p>
+
+  </div>
+
+
+  <div class="mensaje-exito"
+       *ngIf="mensajeExito && !cargando">
+
+    <div class="exito-icon">
+      ✓
+    </div>
+
+    <h2>
+      ¡Gracias!
+    </h2>
+
+    <p>
+      {{ mensajeExito }}
+    </p>
+
+  </div>
+
+
+  <div class="opinar-container"
+       *ngIf="
+         !cargando &&
+         !error &&
+         !mensajeExito &&
+         encuesta
+       ">
+
+    <div class="opinar-card">
+
+
+      <!-- CABECERA -->
+
+      <div class="opinar-header">
+
+        <img *ngIf="encuesta.logoUrl"
+             [src]="encuesta.logoUrl"
+             alt="Logo"
+             class="logo-local">
+
+        <div *ngIf="!encuesta.logoUrl"
+             class="logo-placeholder">
+          ★
+        </div>
+
+        <h1>
+          {{ encuesta.titulo }}
+        </h1>
+
+        <p *ngIf="encuesta.descripcion">
+          {{ encuesta.descripcion }}
+        </p>
+
+        <div class="local-name">
+          {{ encuesta.nombreLocal }}
+        </div>
+
+      </div>
+
+
+      <!-- PREGUNTAS -->
+
+      <div class="preguntas-container">
+
+        <div class="pregunta"
+             *ngFor="let pregunta of encuesta.preguntas">
+
+
+          <!-- TITULO -->
+
+          <div class="pregunta-header">
+
+            <h3>
+              {{ pregunta.texto }}
+            </h3>
+
+            <span *ngIf="pregunta.obligatoria"
+                  class="obligatoria">
+              *
+            </span>
+
+          </div>
+
+
+          <!-- =============================== -->
+          <!-- CALIFICACION CON EMOJIS -->
+          <!-- =============================== -->
+
+          <div class="calificacion"
+               *ngIf="pregunta.tipo === 'CALIFICACION'">
+
+            <button type="button"
+                    *ngFor="let calificacion of calificaciones"
+                    class="emoji-calificacion"
+                    [class.seleccionado]="
+                      esCalificacionSeleccionada(
+                        pregunta.id,
+                        calificacion.valor
+                      )
+                    "
+                    (click)="seleccionarCalificacion(
+                      pregunta.id,
+                      calificacion.valor
+                    )">
+
+              <span class="emoji">
+                {{ calificacion.emoji }}
+              </span>
+
+              <span class="emoji-texto">
+                {{ calificacion.texto }}
+              </span>
+
+            </button>
+
+
+            <div class="calificacion-seleccionada"
+                 *ngIf="tieneRespuesta(pregunta.id)">
+
+              <span class="calificacion-emoji">
+                {{
+ obtenerEmojiCalificacion(
+                     respuestas[pregunta.id]
+                   )
+                }}
+              </span>
+
+              <span>
+                {{ respuestas[pregunta.id] }} de 5
+              </span>
+
+            </div>
+
+          </div>
+
+
+          <!-- =============================== -->
+          <!-- TEXTO -->
+          <!-- =============================== -->
+
+          <div class="texto-respuesta"
+               *ngIf="pregunta.tipo === 'TEXTO'">
+
+            <textarea rows="4"
+                      placeholder="Escribí tu respuesta..."
+                      [value]="obtenerRespuestaTexto(pregunta.id)"
+                      (input)="guardarTexto(
+                        pregunta.id,
+                        obtenerValorInput($event)
+                      )">
+            </textarea>
+
+          </div>
+
+
+          <!-- =============================== -->
+          <!-- OPCIONES DE BASE DE DATOS -->
+          <!-- =============================== -->
+
+          <div class="opciones" *ngIf="pregunta.tipo === 'OPCION'">
+
+            <div class="opcion"
+                 *ngFor="let opcion of pregunta.opciones"
+                 [class.opcion-seleccionada]="esOpcionSeleccionada(pregunta.id, opcion.id)"
+                 (click)="seleccionarOpcion(pregunta.id, opcion.id)">
+
+              <div class="opcion-radio">
+                <div class="radio-interior"
+                     *ngIf="esOpcionSeleccionada(pregunta.id, opcion.id)">
+                </div>
+              </div>
+
+              <span class="opcion-texto">
+                {{ opcion.texto }}
+              </span>
+
+            </div>
+
+          </div>
+
+
+          <!-- =============================== -->
+          <!-- EMPLEADO -->
+          <!-- =============================== -->
+
+          <div class="empleados"
+               *ngIf="pregunta.tipo === 'EMPLEADO'">
+
+            <select [value]="obtenerRespuestaTexto(pregunta.id)"
+                    (change)="seleccionarEmpleado(
+                      pregunta.id,
+                      obtenerValorSelect($event)
+                    )">
+
+              <option value="">
+                Seleccioná un empleado
+              </option>
+
+              <option *ngFor="
+                        let empleado of obtenerEmpleados(pregunta)
+                      "
+                      [value]="empleado.id">
+
+                {{ empleado.nombre }}
+                {{ empleado.apellido }}
+
+              </option>
+
+            </select>
+
+          </div>
+
+        </div>
+
+      </div>
+
+
+      <!-- ERROR -->
+
+      <div class="error-envio"
+           *ngIf="error">
+
+        {{ error }}
+
+      </div>
+
+
+      <!-- ENVIAR -->
+
+      <div class="encuesta-footer">
+
+        <button type="button"
+                class="boton-enviar"
+                [disabled]="enviando"
+                (click)="enviar()">
+
+          <span *ngIf="!enviando">
+            Enviar opinión
+          </span>
+
+          <span *ngIf="enviando">
+            Enviando...
+          </span>
+
+        </button>
+
+        <p>
+          Tu opinión nos ayuda a mejorar.
+        </p>
+
+      </div>
+
+    </div>
+
+  </div>
+
+</div>

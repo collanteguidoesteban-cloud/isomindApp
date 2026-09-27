@@ -1,0 +1,557 @@
+<div class="dashboard">
+
+  <aside class="sidebar">
+
+    <div class="sidebar-logo">
+      <a routerLink="/dashboard">
+        ISOMIND
+      </a>
+    </div>
+
+    <nav class="menu">
+
+      <div class="menu-section">
+
+        <span class="menu-title">
+          PRINCIPAL
+        </span>
+
+        <a class="menu-item active"
+           routerLink="/dashboard">
+
+          <span class="menu-icon">⌂</span>
+          <span>Inicio</span>
+
+        </a>
+
+      </div>
+
+
+      <div class="menu-section">
+
+        <span class="menu-title">
+          MI NEGOCIO
+        </span>
+
+        <a class="menu-item">
+          <span class="menu-icon">🏪</span>
+          <span>Mis locales</span>
+        </a>
+
+        <a class="menu-item"
+           routerLink="/dashboard/crear-local">
+
+          <span class="menu-icon">＋</span>
+          <span>Crear local</span>
+
+        </a>
+
+      </div>
+
+
+      <div class="menu-section">
+
+        <span class="menu-title">
+          ENCUESTAS
+        </span>
+
+        <a class="menu-item">
+          <span class="menu-icon">▣</span>
+          <span>Mis encuestas</span>
+        </a>
+
+        <a type="button"
+           class="primary-button"
+           (click)="crearEncuesta()">
+
+          ＋ Crear encuesta
+
+        </a>
+
+        <a class="menu-item">
+          <span class="menu-icon">✓</span>
+          <span>Respuestas</span>
+        </a>
+
+      </div>
+
+    </nav>
+
+
+    <div class="sidebar-bottom">
+
+      <button type="button"
+              class="logout-button"
+              (click)="cerrarSesion()">
+
+        <span class="menu-icon">↪</span>
+        <span>Cerrar sesión</span>
+
+      </button>
+
+    </div>
+
+  </aside>
+
+
+  <main class="main-content">
+
+
+    <header class="topbar">
+
+      <div class="topbar-title">
+        Dashboard
+      </div>
+
+
+      <div class="user-area">
+
+        <div class="user-info">
+
+          <span class="user-name">
+            {{ usuario ? usuario.nombre : 'Usuario' }}
+          </span>
+
+          <span class="user-local">
+            {{ local ? local.nombre : 'Sin local seleccionado' }}
+          </span>
+
+        </div>
+
+
+        <div class="user-avatar">
+
+          {{
+            usuario
+              ? usuario.nombre.charAt(0).toUpperCase()
+              : 'U'
+          }}
+
+        </div>
+
+      </div>
+
+    </header>
+
+
+    <section class="content">
+
+
+      <div class="welcome">
+
+        <h1>
+          ¡Hola, {{ usuario ? usuario.nombre : 'Usuario' }}! 👋
+        </h1>
+
+        <p>
+          Gestioná tus locales y encuestas desde un solo lugar.
+        </p>
+
+      </div>
+
+
+      <!-- SIN LOCALES -->
+
+      <div class="first-local-card"
+           *ngIf="locales.length === 0">
+
+        <div class="first-local-icon">
+          🏪
+        </div>
+
+        <div class="first-local-content">
+
+          <h2>
+            Comencemos por tu local
+          </h2>
+
+          <p>
+            Antes de crear una encuesta necesitás tener al menos
+            un local configurado.
+          </p>
+
+          <button type="button"
+                  class="primary-button"
+                  routerLink="/dashboard/crear-local">
+
+            ＋ Crear mi primer local
+
+          </button>
+
+        </div>
+
+      </div>
+
+
+      <!-- CON LOCAL -->
+
+      <div *ngIf="locales.length > 0">
+
+
+        <div class="local-header-card">
+
+          <div class="local-header-info">
+
+            <span class="section-label">
+              LOCAL ACTIVO
+            </span>
+
+            <h2>
+              {{ local ? local.nombre : 'Seleccioná un local' }}
+            </h2>
+
+            <p>
+              {{ local ? (local.direccion || 'Sin dirección configurada') : '' }}
+            </p>
+
+          </div>
+
+
+          <div class="local-selector">
+
+            <label>
+              Cambiar local
+            </label>
+
+            <select [value]="local ? local.id : ''"
+                    (change)="cambiarLocal($event)">
+
+              <option *ngFor="let item of locales"
+                      [value]="item.id">
+
+                {{ item.nombre }}
+
+              </option>
+
+            </select>
+
+          </div>
+
+        </div>
+
+
+        <div class="local-info-grid">
+
+
+          <div class="local-info-card">
+
+            <span class="local-info-icon">
+              🏪
+            </span>
+
+            <div>
+
+              <span>
+                Local
+              </span>
+
+              <strong>
+                {{ local ? local.nombre : '-' }}
+              </strong>
+
+            </div>
+
+          </div>
+
+
+          <div class="local-info-card">
+
+            <span class="local-info-icon">
+              📍
+            </span>
+
+            <div>
+
+              <span>
+                Dirección
+              </span>
+
+              <strong>
+                {{ local ? (local.direccion || '-') : '-' }}
+              </strong>
+
+            </div>
+
+          </div>
+
+
+          <div class="local-info-card">
+
+            <span class="local-info-icon">
+              ☎
+            </span>
+
+            <div>
+
+              <span>
+                Teléfono
+              </span>
+
+              <strong>
+                {{ local ? (local.telefono || '-') : '-' }}
+              </strong>
+
+            </div>
+
+          </div>
+
+
+          <div class="local-info-card">
+
+            <span class="local-info-icon">
+              ✉
+            </span>
+
+            <div>
+
+              <span>
+                Correo
+              </span>
+
+              <strong>
+                {{ local ? (local.correo || '-') : '-' }}
+              </strong>
+
+            </div>
+
+          </div>
+
+        </div>
+
+
+        <div class="section-heading">
+
+          <div>
+
+            <span class="section-label">
+              GESTIÓN
+            </span>
+
+            <h2>
+              Encuestas
+            </h2>
+
+            <p>
+              Creá y administrá las encuestas de este local.
+            </p>
+
+          </div>
+
+
+          <button type="button"
+                  class="secondary-button"
+                  (click)="crearEncuesta()">
+
+            Crear encuesta
+
+          </button>
+
+        </div>
+
+
+        <div class="survey-grid">
+
+          <!-- ENCUESTAS EXISTENTES -->
+
+          <div class="survey-card"
+               *ngFor="let encuesta of encuestas">
+
+            <div class="survey-icon">
+              📋
+            </div>
+
+
+            <div class="survey-card-content">
+
+              <span class="survey-status"
+                    [class.inactive]="!encuesta.activa">
+
+                {{ encuesta.activa ? 'Activa' : 'Inactiva' }}
+
+              </span>
+
+
+              <h3>
+                {{ encuesta.titulo }}
+              </h3>
+
+
+              <p>
+                {{ encuesta.descripcion || 'Sin descripción.' }}
+              </p>
+
+            </div>
+
+
+            <!-- QR -->
+
+            <div class="qr-container">
+              <p class="qr-title"> Escaneá para opinar </p>
+              <qrcode [qrdata]="obtenerUrlEncuesta(encuesta)" [width]="160" [errorCorrectionLevel]="'M'"> </qrcode>
+              <button type="button" class="secondary-button qr-button" (click)="abrirEncuesta(encuesta)"> 🔗 Abrir encuesta </button>
+            </div>
+
+
+            <!-- FOOTER -->
+
+            <div class="survey-footer">
+
+              <button type="button"
+                      class="secondary-button"
+                      [routerLink]="[
+          '/dashboard/encuesta',
+          encuesta.id,
+          'preguntas'
+        ]">
+
+                Ver preguntas
+
+              </button>
+
+
+
+              <button type="button"
+                      class="secondary-button"
+                      [routerLink]="[
+          '/dashboard/encuesta',
+          encuesta.id,
+          'respuestas'
+        ]">
+                📋 Ver respuestas
+              </button>
+
+
+
+            </div>
+
+          </div>
+
+
+          <!-- CREAR ENCUESTA -->
+
+          <div class="new-survey-card">
+
+            <div class="new-survey-icon">
+              ＋
+            </div>
+
+            <h3>
+              Crear una encuesta
+            </h3>
+
+            <p>
+              Creá una encuesta para comenzar
+              a recibir opiniones de tus clientes.
+            </p>
+
+            <button type="button"
+                    class="secondary-button"
+                    (click)="crearEncuesta()">
+
+              Crear encuesta
+
+            </button>
+
+          </div>
+
+        </div>
+
+
+        <div class="dashboard-card actions-card">
+
+          <div class="card-header">
+
+            <span class="section-label">
+              ACCIONES RÁPIDAS
+            </span>
+
+            <h2>
+              ¿Qué querés hacer?
+            </h2>
+
+          </div>
+
+
+          <div class="quick-actions">
+
+
+            <button type="button"
+                    class="quick-action">
+
+              <span class="quick-icon">
+                ＋
+              </span>
+
+              <div>
+
+                <strong>
+                  Crear encuesta
+                </strong>
+
+                <small>
+                  Crear una nueva encuesta para este local
+                </small>
+
+              </div>
+
+            </button>
+
+
+            <button type="button"
+                    class="quick-action">
+
+              <span class="quick-icon">
+                ✓
+              </span>
+
+              <div>
+
+                <strong>
+                  Ver respuestas
+                </strong>
+
+                <small>
+                  Consultar las respuestas recibidas
+                </small>
+
+              </div>
+
+            </button>
+
+
+            <button type="button"
+                    class="quick-action">
+
+              <span class="quick-icon">
+                ▥
+              </span>
+
+              <div>
+
+                <strong>
+                  Ver estadísticas
+                </strong>
+
+                <small>
+                  Analizar los resultados de tus encuestas
+                </small>
+
+              </div>
+
+            </button>
+
+
+          </div>
+
+        </div>
+
+
+      </div>
+
+    </section>
+
+  </main>
+
+</div>
+
+

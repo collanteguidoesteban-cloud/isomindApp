@@ -1,0 +1,199 @@
+
+
+
+
+<div class="crear-local-page">
+
+  <!-- HEADER -->
+
+  <div class="crear-local-header">
+
+    <button type="button"
+            class="back-button"
+            routerLink="/dashboard">
+
+      ← Volver al dashboard
+
+    </button>
+
+    <h1>Crear un nuevo local</h1>
+
+    <p>
+      Completá los datos de tu local para comenzar a crear encuestas.
+    </p>
+
+  </div>
+
+
+  <!-- CARD -->
+
+  <div class="crear-local-card">
+
+    <!-- TITULO -->
+
+    <div class="card-title">
+
+      <div class="title-icon">
+        🏪
+      </div>
+
+      <div>
+
+        <h2>Datos del local</h2>
+
+        <p>
+          Estos datos serán utilizados para identificar tu negocio.
+        </p>
+
+      </div>
+
+    </div>
+
+
+    <!-- ERROR -->
+
+    <div class="error-message"
+         *ngIf="error">
+
+      {{ error }}
+
+    </div>
+
+
+    <!-- FORMULARIO -->
+
+    <form (ngSubmit)="crearLocal()">
+
+      <!-- NOMBRE -->
+
+      <div class="form-group">
+
+        <label>
+          Nombre del local <span>*</span>
+        </label>
+
+        <input type="text"
+               placeholder="Ej: Restaurante El Buen Sabor"
+               [(ngModel)]="nombre"
+               name="nombre"
+               required>
+
+      </div>
+
+
+      <!-- DIRECCION / TELEFONO -->
+
+      <div class="form-row">
+
+        <div class="form-group">
+
+          <label>
+            Dirección
+          </label>
+
+          <input type="text"
+                 placeholder="Ej: Av. Corrientes 1234"
+                 [(ngModel)]="direccion"
+                 name="direccion">
+
+        </div>
+
+
+        <div class="form-group">
+
+          <label>
+            Teléfono
+          </label>
+
+          <input type="text"
+                 placeholder="Ej: 11 4567-8900"
+                 [(ngModel)]="telefono"
+                 name="telefono">
+
+        </div>
+
+      </div>
+
+
+      <!-- CORREO / WEB -->
+
+      <div class="form-row">
+
+        <div class="form-group">
+
+          <label>
+            Correo electrónico
+          </label>
+
+          <input type="email"
+                 placeholder="contacto@minegocio.com"
+                 [(ngModel)]="correo"
+                 name="correo">
+
+        </div>
+
+
+        <div class="form-group">
+
+          <label>
+            Sitio web
+          </label>
+
+          <input type="text"
+                 placeholder="https://www.minegocio.com"
+                 [(ngModel)]="url"
+                 name="url">
+
+        </div>
+
+      </div>
+
+
+      <!-- LOGO -->
+
+      <div class="form-group">
+
+        <label>
+          Logo del local
+        </label>
+
+        <input type="text"
+               placeholder="URL de la imagen del logo"
+               [(ngModel)]="logoUrl"
+               name="logoUrl">
+
+        <small>
+          Por ahora podés ingresar la URL de una imagen.
+        </small>
+
+      </div>
+
+
+      <!-- BOTONES -->
+
+      <div class="form-actions">
+
+        <button type="button"
+                class="secondary-button"
+                routerLink="/dashboard">
+
+          Cancelar
+
+        </button>
+
+
+        <button type="submit"
+                class="primary-button"
+                [disabled]="guardando">
+
+          {{ guardando ? 'Creando...' : 'Crear local' }}
+
+        </button>
+
+      </div>
+
+    </form>
+
+  </div>
+
+</div>

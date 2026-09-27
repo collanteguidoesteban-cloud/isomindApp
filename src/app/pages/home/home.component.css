@@ -1,0 +1,1148 @@
+/* =====================================================
+   RESET
+===================================================== */
+
+* {
+  box-sizing: border-box;
+}
+
+:host {
+  display: block;
+  font-family: Arial, Helvetica, sans-serif;
+  color: #172033;
+}
+
+html {
+  scroll-behavior: smooth;
+}
+
+body {
+  margin: 0;
+}
+
+
+/* =====================================================
+   CONTENEDOR
+===================================================== */
+
+.container {
+  width: 100%;
+  max-width: 1180px;
+  margin: 0 auto;
+  padding-left: 25px;
+  padding-right: 25px;
+}
+
+
+/* =====================================================
+   NAVBAR
+===================================================== */
+
+.navbar {
+  width: 100%;
+  height: 76px;
+  background: #ffffff;
+  border-bottom: 1px solid #eef1f4;
+  position: sticky;
+  top: 0;
+  z-index: 1000;
+}
+
+.navbar-content {
+  height: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+
+
+/* LOGO */
+
+.logo {
+  text-decoration: none;
+  color: #172033;
+  font-size: 24px;
+  font-weight: 800;
+  letter-spacing: 2px;
+}
+
+
+/* MENU */
+
+.desktop-menu {
+  display: flex;
+  align-items: center;
+  gap: 35px;
+}
+
+  .desktop-menu a {
+    color: #667085;
+    text-decoration: none;
+    font-size: 14px;
+    font-weight: 500;
+    transition: 0.2s;
+  }
+
+    .desktop-menu a:hover {
+      color: #16a085;
+    }
+
+
+/* ACCIONES */
+
+.desktop-actions {
+  display: flex;
+  align-items: center;
+  gap: 20px;
+}
+
+.login-link {
+  color: #344054;
+  text-decoration: none;
+  font-size: 14px;
+  font-weight: 600;
+}
+
+  .login-link:hover {
+    color: #16a085;
+  }
+
+
+/* =====================================================
+   BOTONES
+===================================================== */
+
+.btn {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  text-decoration: none;
+  cursor: pointer;
+  border-radius: 9px;
+  font-weight: 600;
+  transition: all 0.2s;
+}
+
+.btn-primary {
+  background: #16a085;
+  color: #ffffff;
+  padding: 11px 20px;
+}
+
+  .btn-primary:hover {
+    background: #12876f;
+    transform: translateY(-1px);
+  }
+
+.btn-large {
+  min-width: 175px;
+  height: 52px;
+  padding: 0 25px;
+  font-size: 15px;
+}
+
+.btn-secondary {
+  background: #ffffff;
+  color: #344054;
+  border: 1px solid #d9dee7;
+}
+
+  .btn-secondary:hover {
+    border-color: #16a085;
+    color: #16a085;
+    background: #f8fffd;
+  }
+
+.btn-white {
+  background: #ffffff;
+  color: #16a085;
+  padding: 13px 25px;
+}
+
+  .btn-white:hover {
+    background: #f2fffb;
+    transform: translateY(-1px);
+  }
+
+
+/* =====================================================
+   MENU MOBILE
+===================================================== */
+
+.mobile-menu-button {
+  display: none;
+  border: none;
+  background: transparent;
+  color: #172033;
+  font-size: 27px;
+  cursor: pointer;
+}
+
+.mobile-menu {
+  display: none;
+}
+
+
+/* =====================================================
+   HERO
+===================================================== */
+
+.hero {
+  min-height: 650px;
+  background: radial-gradient( circle at 85% 35%, rgba(22, 160, 133, 0.09), transparent 30% ), linear-gradient( 180deg, #ffffff 0%, #f8fbfa 100% );
+  display: flex;
+  align-items: center;
+  overflow: hidden;
+}
+
+.hero-content {
+  min-height: 650px;
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  align-items: center;
+  gap: 60px;
+}
+
+
+/* =====================================================
+   HERO TEXTO
+===================================================== */
+
+.hero-text {
+  max-width: 590px;
+}
+
+.hero-badge {
+  display: inline-flex;
+  align-items: center;
+  padding: 8px 14px;
+  border-radius: 30px;
+  background: #e9f8f4;
+  color: #13856f;
+  font-size: 13px;
+  font-weight: 700;
+  margin-bottom: 22px;
+}
+
+.hero-text h1 {
+  margin: 0;
+  color: #172033;
+  font-size: 58px;
+  line-height: 1.08;
+  letter-spacing: -2px;
+  font-weight: 800;
+}
+
+  .hero-text h1 span {
+    display: block;
+    color: #16a085;
+  }
+
+.hero-text p {
+  max-width: 540px;
+  margin: 25px 0 30px;
+  color: #667085;
+  font-size: 17px;
+  line-height: 1.7;
+}
+
+.hero-buttons {
+  display: flex;
+  align-items: center;
+  gap: 14px;
+}
+
+
+/* =====================================================
+   HERO VISUAL
+===================================================== */
+
+.hero-visual {
+  position: relative;
+  width: 100%;
+  min-height: 500px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+
+/* =====================================================
+   TARJETA PRINCIPAL
+===================================================== */
+
+.experience-card {
+  position: relative;
+  width: 440px;
+  background: #ffffff;
+  border-radius: 22px;
+  padding: 28px;
+  box-shadow: 0 25px 70px rgba(23, 32, 51, 0.12);
+  border: 1px solid #edf0f2;
+  z-index: 2;
+}
+
+
+/* HEADER TARJETA */
+
+.experience-header {
+  display: flex;
+  align-items: center;
+  gap: 13px;
+  padding-bottom: 22px;
+  border-bottom: 1px solid #edf0f2;
+}
+
+.experience-logo {
+  width: 44px;
+  height: 44px;
+  border-radius: 12px;
+  background: #16a085;
+  color: #ffffff;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 21px;
+  font-weight: 800;
+}
+
+.experience-header strong {
+  display: block;
+  color: #172033;
+  font-size: 15px;
+  margin-bottom: 4px;
+}
+
+.experience-header span {
+  display: block;
+  color: #98a2b3;
+  font-size: 12px;
+}
+
+
+/* =====================================================
+   RATING
+===================================================== */
+
+.experience-rating {
+  display: flex;
+  align-items: center;
+  gap: 20px;
+  padding: 25px 0;
+}
+
+.rating-number {
+  color: #172033;
+  font-size: 46px;
+  line-height: 1;
+  font-weight: 800;
+}
+
+.rating-info {
+  display: flex;
+  flex-direction: column;
+  gap: 5px;
+}
+
+.rating-stars {
+  color: #f5b942;
+  font-size: 19px;
+  letter-spacing: 2px;
+}
+
+.rating-info span {
+  color: #667085;
+  font-size: 12px;
+}
+
+
+/* =====================================================
+   BARRAS DE CALIFICACION
+===================================================== */
+
+.rating-bars {
+  display: flex;
+  flex-direction: column;
+  gap: 11px;
+  padding-bottom: 24px;
+}
+
+.rating-bar {
+  display: grid;
+  grid-template-columns: 15px 1fr 35px;
+  align-items: center;
+  gap: 10px;
+}
+
+  .rating-bar > span {
+    color: #667085;
+    font-size: 12px;
+    font-weight: 600;
+  }
+
+  .rating-bar small {
+    color: #98a2b3;
+    font-size: 11px;
+    text-align: right;
+  }
+
+.bar {
+  height: 7px;
+  background: #edf1f3;
+  border-radius: 10px;
+  overflow: hidden;
+}
+
+.bar-fill {
+  height: 100%;
+  border-radius: 10px;
+  background: #16a085;
+}
+
+.bar-5 {
+  width: 82%;
+}
+
+.bar-4 {
+  width: 62%;
+}
+
+.bar-3 {
+  width: 35%;
+}
+
+.bar-2 {
+  width: 18%;
+}
+
+
+/* =====================================================
+   COMENTARIO
+===================================================== */
+
+.experience-comment {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  padding: 16px;
+  background: #f8fafb;
+  border-radius: 12px;
+}
+
+.comment-avatar {
+  width: 38px;
+  height: 38px;
+  min-width: 38px;
+  border-radius: 50%;
+  background: #dff5ef;
+  color: #13856f;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-weight: 700;
+  font-size: 14px;
+}
+
+.comment-content {
+  flex: 1;
+  min-width: 0;
+}
+
+  .comment-content strong {
+    display: block;
+    color: #344054;
+    font-size: 12px;
+    margin-bottom: 3px;
+  }
+
+  .comment-content p {
+    margin: 0;
+    color: #667085;
+    font-size: 12px;
+    line-height: 1.4;
+  }
+
+.comment-check {
+  width: 27px;
+  height: 27px;
+  min-width: 27px;
+  border-radius: 50%;
+  background: #16a085;
+  color: white;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 13px;
+}
+
+
+/* =====================================================
+   TARJETAS FLOTANTES
+===================================================== */
+
+.floating-card {
+  position: absolute;
+  background: #ffffff;
+  border: 1px solid #edf0f2;
+  border-radius: 14px;
+  box-shadow: 0 15px 40px rgba(23, 32, 51, 0.12);
+  z-index: 3;
+}
+
+
+/* SUPERIOR */
+
+.floating-card-top {
+  top: 55px;
+  right: 5px;
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  padding: 13px 17px;
+}
+
+.floating-icon {
+  width: 34px;
+  height: 34px;
+  border-radius: 9px;
+  background: #e9f8f4;
+  color: #16a085;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 15px;
+  font-weight: 800;
+}
+
+.floating-card strong {
+  display: block;
+  color: #344054;
+  font-size: 12px;
+  margin-bottom: 3px;
+}
+
+.floating-card span {
+  display: block;
+  color: #98a2b3;
+  font-size: 10px;
+}
+
+
+/* INFERIOR */
+
+.floating-card-bottom {
+  bottom: 55px;
+  left: 0;
+  display: flex;
+  align-items: center;
+  gap: 13px;
+  padding: 13px 18px;
+}
+
+.mini-chart {
+  height: 35px;
+  width: 55px;
+  display: flex;
+  align-items: flex-end;
+  gap: 5px;
+}
+
+  .mini-chart span {
+    width: 7px;
+    background: #16a085;
+    border-radius: 4px;
+  }
+
+    .mini-chart span:nth-child(1) {
+      height: 35%;
+    }
+
+    .mini-chart span:nth-child(2) {
+      height: 55%;
+    }
+
+    .mini-chart span:nth-child(3) {
+      height: 45%;
+    }
+
+    .mini-chart span:nth-child(4) {
+      height: 75%;
+    }
+
+    .mini-chart span:nth-child(5) {
+      height: 100%;
+    }
+
+
+/* =====================================================
+   ESTADISTICAS
+===================================================== */
+
+.stats {
+  background: #ffffff;
+  border-top: 1px solid #eef1f4;
+  border-bottom: 1px solid #eef1f4;
+  padding: 35px 0;
+}
+
+.stats-grid {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 20px;
+}
+
+.stat-card {
+  text-align: center;
+  padding: 10px;
+}
+
+  .stat-card strong {
+    display: block;
+    color: #172033;
+    font-size: 31px;
+    font-weight: 800;
+    margin-bottom: 5px;
+  }
+
+  .stat-card span {
+    color: #98a2b3;
+    font-size: 13px;
+  }
+
+
+/* =====================================================
+   SECCIONES
+===================================================== */
+
+.section {
+  padding: 100px 0;
+  background: #ffffff;
+}
+
+.section-gray {
+  background: #f8fafb;
+}
+
+
+/* =====================================================
+   TITULOS
+===================================================== */
+
+.section-title {
+  max-width: 650px;
+  margin: 0 auto 60px;
+  text-align: center;
+}
+
+  .section-title > span {
+    display: block;
+    margin-bottom: 12px;
+    color: #16a085;
+    font-size: 12px;
+    font-weight: 800;
+    letter-spacing: 1.5px;
+  }
+
+  .section-title h2 {
+    margin: 0 0 15px;
+    color: #172033;
+    font-size: 38px;
+    line-height: 1.2;
+    font-weight: 800;
+  }
+
+  .section-title p {
+    margin: 0;
+    color: #667085;
+    font-size: 16px;
+    line-height: 1.6;
+  }
+
+
+/* =====================================================
+   PASOS
+===================================================== */
+
+.steps {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 30px;
+}
+
+.step {
+  position: relative;
+  padding: 30px;
+  background: #ffffff;
+  border: 1px solid #edf0f2;
+  border-radius: 16px;
+  transition: all 0.2s;
+}
+
+  .step:hover {
+    transform: translateY(-4px);
+    box-shadow: 0 15px 35px rgba(23, 32, 51, 0.08);
+  }
+
+.step-number {
+  margin-bottom: 25px;
+  color: #16a085;
+  font-size: 14px;
+  font-weight: 800;
+  letter-spacing: 1px;
+}
+
+.step h3 {
+  margin: 0 0 10px;
+  color: #172033;
+  font-size: 20px;
+}
+
+.step p {
+  margin: 0;
+  color: #667085;
+  font-size: 14px;
+  line-height: 1.7;
+}
+
+
+/* =====================================================
+   BENEFICIOS
+===================================================== */
+
+.benefits {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 25px;
+}
+
+.benefit-card {
+  padding: 35px;
+  background: #ffffff;
+  border: 1px solid #edf0f2;
+  border-radius: 16px;
+  transition: all 0.2s;
+}
+
+  .benefit-card:hover {
+    transform: translateY(-4px);
+    box-shadow: 0 15px 35px rgba(23, 32, 51, 0.08);
+  }
+
+.benefit-icon {
+  width: 50px;
+  height: 50px;
+  margin-bottom: 22px;
+  border-radius: 12px;
+  background: #e9f8f4;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 22px;
+}
+
+.benefit-card h3 {
+  margin: 0 0 10px;
+  color: #172033;
+  font-size: 20px;
+}
+
+.benefit-card p {
+  margin: 0;
+  color: #667085;
+  font-size: 14px;
+  line-height: 1.7;
+}
+
+
+/* =====================================================
+   CTA
+===================================================== */
+
+.cta {
+  padding: 90px 0;
+  background: linear-gradient( 135deg, #16a085 0%, #12876f 100% );
+}
+
+.cta-content {
+  text-align: center;
+}
+
+.cta h2 {
+  margin: 0 0 15px;
+  color: #ffffff;
+  font-size: 38px;
+  line-height: 1.2;
+  font-weight: 800;
+}
+
+.cta p {
+  margin: 0 auto 30px;
+  color: rgba(255, 255, 255, 0.85);
+  font-size: 16px;
+}
+
+
+/* =====================================================
+   FOOTER
+===================================================== */
+
+footer {
+  background: #172033;
+  padding: 30px 0;
+}
+
+.footer-content {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  color: #98a2b3;
+  font-size: 13px;
+}
+
+.footer-logo {
+  color: #ffffff;
+  font-size: 18px;
+  font-weight: 800;
+  letter-spacing: 2px;
+}
+
+
+/* =====================================================
+   TABLET
+===================================================== */
+
+@media (max-width: 1000px) {
+
+  .hero-content {
+    grid-template-columns: 1fr;
+    gap: 20px;
+    padding-top: 60px;
+    padding-bottom: 60px;
+  }
+
+  .hero-text {
+    max-width: 700px;
+    margin: 0 auto;
+    text-align: center;
+  }
+
+    .hero-text p {
+      margin-left: auto;
+      margin-right: auto;
+    }
+
+  .hero-buttons {
+    justify-content: center;
+  }
+
+  .hero-visual {
+    min-height: 500px;
+  }
+
+  .experience-card {
+    width: 430px;
+  }
+
+  .stats-grid {
+    grid-template-columns: repeat(2, 1fr);
+  }
+
+  .steps {
+    grid-template-columns: 1fr;
+  }
+
+  .benefits {
+    grid-template-columns: 1fr;
+  }
+}
+
+
+/* =====================================================
+   MOBILE
+===================================================== */
+
+@media (max-width: 768px) {
+
+  .container {
+    padding-left: 20px;
+    padding-right: 20px;
+  }
+
+
+  /* NAVBAR */
+
+  .desktop-menu,
+  .desktop-actions {
+    display: none;
+  }
+
+  .mobile-menu-button {
+    display: block;
+  }
+
+  .mobile-menu {
+    position: absolute;
+    top: 76px;
+    left: 0;
+    right: 0;
+    display: flex;
+    flex-direction: column;
+    background: #ffffff;
+    border-top: 1px solid #eef1f4;
+    box-shadow: 0 10px 30px rgba(23, 32, 51, 0.08);
+    padding: 15px 20px 20px;
+  }
+
+    .mobile-menu a {
+      padding: 14px 5px;
+      color: #344054;
+      text-decoration: none;
+      font-size: 14px;
+      border-bottom: 1px solid #f0f2f4;
+    }
+
+      .mobile-menu a:hover {
+        color: #16a085;
+      }
+
+    .mobile-menu .mobile-button {
+      margin-top: 12px;
+      border: none;
+      border-radius: 8px;
+      background: #16a085;
+      color: #ffffff;
+      text-align: center;
+    }
+
+
+  /* HERO */
+
+  .hero {
+    min-height: auto;
+  }
+
+  .hero-content {
+    min-height: auto;
+    padding-top: 55px;
+    padding-bottom: 55px;
+  }
+
+  .hero-text h1 {
+    font-size: 42px;
+    letter-spacing: -1px;
+  }
+
+  .hero-text p {
+    font-size: 15px;
+    line-height: 1.6;
+  }
+
+  .hero-buttons {
+    flex-direction: column;
+    width: 100%;
+  }
+
+    .hero-buttons .btn {
+      width: 100%;
+    }
+
+
+  /* HERO VISUAL */
+
+  .hero-visual {
+    min-height: 450px;
+    margin-top: 10px;
+  }
+
+  .experience-card {
+    width: 100%;
+    max-width: 420px;
+    padding: 22px;
+  }
+
+  .floating-card-top {
+    top: 15px;
+    right: 0;
+  }
+
+  .floating-card-bottom {
+    bottom: 10px;
+    left: 0;
+  }
+
+
+  /* STATS */
+
+  .stats {
+    padding: 25px 0;
+  }
+
+  .stats-grid {
+    grid-template-columns: repeat(2, 1fr);
+    gap: 10px;
+  }
+
+  .stat-card strong {
+    font-size: 26px;
+  }
+
+
+  /* SECCIONES */
+
+  .section {
+    padding: 70px 0;
+  }
+
+  .section-title {
+    margin-bottom: 40px;
+  }
+
+    .section-title h2 {
+      font-size: 31px;
+    }
+
+    .section-title p {
+      font-size: 14px;
+    }
+
+
+  /* PASOS */
+
+  .step {
+    padding: 25px;
+  }
+
+
+  /* BENEFICIOS */
+
+  .benefit-card {
+    padding: 28px;
+  }
+
+
+  /* CTA */
+
+  .cta {
+    padding: 70px 0;
+  }
+
+    .cta h2 {
+      font-size: 30px;
+    }
+
+
+  /* FOOTER */
+
+  .footer-content {
+    flex-direction: column;
+    gap: 12px;
+    text-align: center;
+  }
+}
+
+
+/* =====================================================
+   MOBILE PEQUEÑO
+===================================================== */
+
+@media (max-width: 480px) {
+
+  .navbar {
+    height: 68px;
+  }
+
+  .mobile-menu {
+    top: 68px;
+  }
+
+  .hero-content {
+    padding-top: 45px;
+    padding-bottom: 45px;
+  }
+
+  .hero-badge {
+    font-size: 11px;
+  }
+
+  .hero-text h1 {
+    font-size: 36px;
+  }
+
+  .hero-text p {
+    font-size: 14px;
+  }
+
+
+  .hero-visual {
+    min-height: 400px;
+  }
+
+  .experience-card {
+    padding: 18px;
+    border-radius: 17px;
+  }
+
+  .experience-rating {
+    gap: 14px;
+    padding: 20px 0;
+  }
+
+  .rating-number {
+    font-size: 38px;
+  }
+
+  .rating-stars {
+    font-size: 16px;
+  }
+
+  .rating-info span {
+    font-size: 10px;
+  }
+
+  .experience-comment {
+    padding: 12px;
+  }
+
+  .comment-content p {
+    font-size: 11px;
+  }
+
+
+  .floating-card-top {
+    right: -5px;
+    padding: 10px 12px;
+  }
+
+  .floating-card-bottom {
+    left: -5px;
+    padding: 10px 12px;
+  }
+
+
+  .floating-icon {
+    width: 30px;
+    height: 30px;
+  }
+
+
+  .stats-grid {
+    grid-template-columns: 1fr 1fr;
+  }
+
+  .stat-card strong {
+    font-size: 23px;
+  }
+
+  .stat-card span {
+    font-size: 11px;
+  }
+
+
+  .section-title h2 {
+    font-size: 28px;
+  }
+
+  .cta h2 {
+    font-size: 27px;
+  }
+}
