@@ -74,7 +74,13 @@ export class DashboardComponent implements OnInit {
       return '';
     }
 
-    return window.location.origin +
+    var baseUrl = window.location.origin;
+
+    if (baseUrl.indexOf('github.io') >= 0) {
+      baseUrl += '/isomindApp';
+    }
+
+    return baseUrl +
       '/opinar/' +
       this.local.slug +
       '/' +
